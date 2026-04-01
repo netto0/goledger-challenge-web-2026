@@ -1,0 +1,1 @@
+export type AssetType = "tvShows" | "seasons" | "episodes" | "watchlist"

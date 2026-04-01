@@ -1,3 +1,6 @@
+import axios from "axios";
+import type { AssetType } from "../types/AssetType";
+
 const baseUrl = import.meta.env.VITE_BASE_URL;
 
 const authPayload = {
@@ -5,4 +8,21 @@ const authPayload = {
   password: import.meta.env.VITE_PASSWORD,
 };
 
-export { baseUrl, authPayload };
+const getItensByType = async (type: AssetType) => {
+  const response = await axios.post(
+    `${baseUrl}/query/search`,
+    {
+      query: {
+        selector: {
+          "@assetType": type,
+        },
+      },
+    },
+    {
+      auth: authPayload,
+    }
+  );
+  return response.data.result;
+};
+
+export { baseUrl, authPayload, getItensByType };
