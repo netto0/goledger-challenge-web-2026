@@ -4,3 +4,15 @@ export type TvShowType = {
   recommendedAge: number;
   description: string;
 };
+
+export type TvShowKeyType = {
+  "@assetType": string;
+  "@key": string;
+};
+
+export const tvShowInitialValues = {
+  "@key": "",
+  title: "",
+  recommendedAge: 0,
+  description: "",
+};

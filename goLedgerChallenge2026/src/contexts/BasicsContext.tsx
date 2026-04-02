@@ -1,8 +1,11 @@
 import { createContext } from "react";
-import type { TvShowType } from "../types/TvShowType";
-import type { SeasonType } from "../types/SeasonType";
-import type { EpisodeType } from "../types/EpisodeType";
-import type { WatchListType } from "../types/WatchListType";
+import { tvShowInitialValues, type TvShowType } from "../types/TvShowType";
+import { seasonInitialValues, type SeasonType } from "../types/SeasonType";
+import { episodeInitialValues, type EpisodeType } from "../types/EpisodeType";
+import {
+  watchListInitialValues,
+  type WatchListType,
+} from "../types/WatchListType";
 
 type BasicsType = {
   tvShows: TvShowType[];
@@ -13,6 +16,14 @@ type BasicsType = {
   setEpisodes: React.Dispatch<React.SetStateAction<EpisodeType[]>>;
   watchLists: WatchListType[];
   setWatchLists: React.Dispatch<React.SetStateAction<WatchListType[]>>;
+  newTvShowInfos: TvShowType;
+  setNewTvShowInfos: React.Dispatch<React.SetStateAction<TvShowType>>;
+  newSeasonInfos: SeasonType;
+  setNewSeasonInfos: React.Dispatch<React.SetStateAction<SeasonType>>;
+  newEpisodeInfos: EpisodeType;
+  setNewEpisodeInfos: React.Dispatch<React.SetStateAction<EpisodeType>>;
+  newWatchListInfos: WatchListType;
+  setNewWatchListInfos: React.Dispatch<React.SetStateAction<WatchListType>>;
   getTvShows: () => Promise<void>;
   getSeasons: () => Promise<void>;
   getEpisodes: () => Promise<void>;
@@ -32,6 +43,14 @@ export const BasicsContext = createContext<BasicsType>({
   setEpisodes: () => {},
   watchLists: [],
   setWatchLists: () => {},
+  newTvShowInfos: tvShowInitialValues,
+  setNewTvShowInfos: () => {},
+  newSeasonInfos: seasonInitialValues,
+  setNewSeasonInfos: () => {},
+  newEpisodeInfos: episodeInitialValues,
+  setNewEpisodeInfos: () => {},
+  newWatchListInfos: watchListInitialValues,
+  setNewWatchListInfos: () => {},
   getTvShows: async () => {},
   getSeasons: async () => {},
   getEpisodes: async () => {},

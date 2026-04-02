@@ -28,4 +28,35 @@ const getTvShowByIdService = async (title: string) => {
   return response.data.result;
 };
 
-export { getTvShowsService, getTvShowByIdService };
+const addTvShowService = async (
+  title: string,
+  description: string,
+  recommendedAge: number,
+) => {
+  try {
+    const response = await axios.post(
+      `${baseUrl}/invoke/createAsset`,
+      {
+        asset: [
+          {
+            "@assetType": "tvShows",
+            title: title,
+            description: description,
+            recommendedAge: recommendedAge,
+          },
+        ],
+      },
+      {
+        auth: authPayload,
+      },
+    );
+    location.reload();
+    return response;
+  } catch (error) {
+    if (error instanceof AxiosError && error.response) {
+      return error.response.data;
+    }
+  }
+};
+
+export { getTvShowsService, getTvShowByIdService, addTvShowService };

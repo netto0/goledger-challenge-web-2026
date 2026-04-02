@@ -1,33 +1,73 @@
-import type { SeasonType } from "../types/SeasonType";
-import type { TvShowType } from "../types/TvShowType";
+import React from "react";
+import { BasicsContext } from "../contexts/BasicsContext";
+import { addTvShowService } from "../api/services/tvShowsServices";
 
-type props = {
-  tvShows: TvShowType[];
-  seasons: SeasonType[];
-};
-
-export default function TvShowsPage({ tvShows, seasons }: props) {
+export default function TvShowsPage() {
+  const { seasons, tvShows, newTvShowInfos, setNewTvShowInfos } =
+    React.useContext(BasicsContext);
   function getSeasonsCount(tvShowKey: string): number {
     return seasons.filter((s) => s.tvShow["@key"] == tvShowKey).length;
   }
   return (
-    <div>
+    <div style={{ backgroundColor: "gray" }}>
       <h1>TV SHOWS PAGE</h1>
 
-      <br />
-      <strong>Add New Tv Show</strong>
-      <br />
+      <form action="">
+        <br />
+        <strong>Add New Tv Show</strong>
+        <br />
 
-      <span>Title: </span>
-      <input type="text" />
+        <span>Title: </span>
+        <input
+          type="text"
+          value={newTvShowInfos.title}
+          onChange={(
+            e: React.ChangeEvent<HTMLInputElement, HTMLInputElement>,
+          ) => setNewTvShowInfos({ ...newTvShowInfos, title: e.target.value })}
+        />
 
-      <br />
-      <span>Description: </span>
-      <textarea></textarea>
+        <br />
+        <span>Description: </span>
+        <textarea
+          value={newTvShowInfos.description}
+          onChange={(
+            e: React.ChangeEvent<HTMLTextAreaElement, HTMLTextAreaElement>,
+          ) =>
+            setNewTvShowInfos({
+              ...newTvShowInfos,
+              description: e.target.value,
+            })
+          }
+        ></textarea>
 
-      <br />
-      <span>Recommended Age: </span>
-      <input type="number" name="" id="" />
+        <br />
+        <span>Recommended Age: </span>
+        <input
+          type="number"
+          value={newTvShowInfos.recommendedAge}
+          onChange={(
+            e: React.ChangeEvent<HTMLInputElement, HTMLInputElement>,
+          ) =>
+            setNewTvShowInfos({
+              ...newTvShowInfos,
+              recommendedAge: Number(e.target.value),
+            })
+          }
+        />
+
+        <button
+          onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+            e.preventDefault();
+            addTvShowService(
+              newTvShowInfos.title,
+              newTvShowInfos.description,
+              newTvShowInfos.recommendedAge,
+            );
+          }}
+        >
+          Enviar
+        </button>
+      </form>
 
       <h1>TV SHOWS</h1>
       {tvShows?.map((e) => (

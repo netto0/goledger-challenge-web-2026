@@ -5,8 +5,18 @@ export type EpisodeType = {
   rating: number;
   releaseDate: string;
   season: {
-    "@assetType": "seasons";
+    "@assetType": string;
     "@key": string;
   };
   title: string;
+};
+
+export const episodeInitialValues = {
+  "@key": "",
+  description: "",
+  episodeNumber: 0,
+  rating: 0,
+  releaseDate: "",
+  season: { "@assetType": "seasons", "@key": "" },
+  title: "",
 };
