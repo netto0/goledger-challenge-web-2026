@@ -5,6 +5,7 @@ import {
   updateEpisodeService,
 } from "../api/services/episodesServices";
 import { BasicsContext } from "../contexts/BasicsContext";
+import { deleteItem } from "../api/axios";
 
 type props = {
   episodeNumber: number;
@@ -112,6 +113,14 @@ export default function EditEpisodeScreen({ episodeNumber, seasonKey }: props) {
         }}
       >
         Enviar
+      </button>
+      <button
+        onClick={(e) => {
+          e.preventDefault();
+          deleteItem(editEpisodeInfos["@key"]);
+        }}
+      >
+        DELETAR EP
       </button>
     </form>
   );

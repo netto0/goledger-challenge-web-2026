@@ -5,6 +5,7 @@ import {
   getSeasonByIdService,
   updateSeasonService,
 } from "../api/services/seasonsServices";
+import { deleteItem } from "../api/axios";
 
 type props = {
   number: number;
@@ -65,6 +66,14 @@ export default function EditSeasonScreen({ number, tvShowKey }: props) {
         }}
       >
         Enviar
+      </button>
+      <button
+        onClick={(e) => {
+          e.preventDefault();
+          deleteItem(editSeasonInfos["@key"]);
+        }}
+      >
+        DELETAR SEASON
       </button>
     </form>
   );

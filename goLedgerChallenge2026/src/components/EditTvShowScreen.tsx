@@ -4,6 +4,7 @@ import {
   updateTvShowService,
 } from "../api/services/tvShowsServices";
 import type { TvShowType } from "../types/TvShowType";
+import { deleteItem } from "../api/axios";
 
 type props = {
   title: string;
@@ -66,6 +67,14 @@ export default function EditTvShowScreen({ title }: props) {
         }}
       >
         Enviar
+      </button>
+      <button
+        onClick={(e) => {
+          e.preventDefault();
+          deleteItem(editTvShowInfos["@key"]);
+        }}
+      >
+        DELETAR SHOW
       </button>
     </form>
   );

@@ -5,6 +5,7 @@ import {
   updateWatchListService,
 } from "../api/services/watchListsServices";
 import { BasicsContext } from "../contexts/BasicsContext";
+import { deleteItem } from "../api/axios";
 
 type props = {
   title: string;
@@ -75,6 +76,14 @@ export default function EditWatchListScreen({ title }: props) {
         }}
       >
         Enviar
+      </button>
+      <button
+        onClick={(e) => {
+          e.preventDefault();
+          deleteItem(editWatchListInfos["@key"]);
+        }}
+      >
+        DELETAR WATCH LIST
       </button>
     </form>
   );

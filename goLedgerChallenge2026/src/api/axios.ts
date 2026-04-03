@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import type { AssetType } from "../types/AssetType";
 
 const baseUrl = import.meta.env.VITE_BASE_URL;
@@ -20,9 +20,29 @@ const getItensByType = async (type: AssetType) => {
     },
     {
       auth: authPayload,
-    }
+    },
   );
   return response.data.result;
 };
 
-export { baseUrl, authPayload, getItensByType };
+const deleteItem = async (itemKey: string) => {
+  try {
+    const response = await axios.delete(`${baseUrl}/invoke/deleteAsset`, {
+      data: {
+        key: {
+          "@key": itemKey,
+        },
+        cascade: true,
+      },
+      auth: authPayload,
+    });
+    location.reload();
+    return response;
+  } catch (error) {
+    if (error instanceof AxiosError && error.response) {
+      return error.response.data;
+    }
+  }
+};
+
+export { baseUrl, authPayload, getItensByType, deleteItem };

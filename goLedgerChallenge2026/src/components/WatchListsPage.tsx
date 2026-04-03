@@ -81,7 +81,7 @@ export default function WatchListsPage() {
             Enviar
           </button>
         </form>
-        <EditWatchListScreen title="testeee"/>
+        <EditWatchListScreen title="ssssssssssssssssssssssss"/>
       </div>
 
       {watchLists?.map((e) => (
