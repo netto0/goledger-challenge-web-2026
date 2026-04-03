@@ -13,6 +13,22 @@ const getWatchListsService = async () => {
   }
 };
 
+const getWatchListByIdService = async (title: string) => {
+  const response = await axios.post(
+    `${baseUrl}/query/readAsset`,
+    {
+      key: {
+        "@assetType": "watchlist",
+        title: title,
+      },
+    },
+    {
+      auth: authPayload,
+    },
+  );
+  return response.data;
+};
+
 const addWatchListService = async (
   title: string,
   description: string,
@@ -49,4 +65,39 @@ const addWatchListService = async (
   }
 };
 
-export { getWatchListsService, addWatchListService };
+const updateWatchListService = async (
+  title: string,
+  tvShows: TvShowKeyType[],
+  description: string,
+) => {
+  try {
+    console.log(tvShows);
+    const response = await axios.post(
+      `${baseUrl}/invoke/updateAsset`,
+      {
+        update: {
+          "@assetType": "watchlist",
+          title: title,
+          tvShows: tvShows,
+          description: description,
+        },
+      },
+      {
+        auth: authPayload,
+      },
+    );
+    location.reload();
+    return response;
+  } catch (error) {
+    if (error instanceof AxiosError && error.response) {
+      return error.response.data;
+    }
+  }
+};
+
+export {
+  getWatchListsService,
+  getWatchListByIdService,
+  addWatchListService,
+  updateWatchListService,
+};

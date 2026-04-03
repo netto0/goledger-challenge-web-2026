@@ -12,6 +12,29 @@ const getEpisodesService = async () => {
   }
 };
 
+const getEpisodeByIdService = async (
+  seasonKey: string,
+  episodeNumber: number,
+) => {
+  const response = await axios.post(
+    `${baseUrl}/query/readAsset`,
+    {
+      key: {
+        "@assetType": "episodes",
+        season: {
+          "@assetType": "seasons",
+          "@key": seasonKey,
+        },
+        episodeNumber: episodeNumber,
+      },
+    },
+    {
+      auth: authPayload,
+    },
+  );
+  return response.data;
+};
+
 const addEpisodeService = async (
   description: string,
   episodeNumber: number,
@@ -52,4 +75,47 @@ const addEpisodeService = async (
   }
 };
 
-export { getEpisodesService, addEpisodeService };
+const updateEpisodeService = async (
+  seasonKey: string,
+  episodeNumber: number,
+  title: string,
+  releaseDate: string,
+  description: string,
+  rating: number,
+) => {
+  try {
+    const response = await axios.post(
+      `${baseUrl}/invoke/updateAsset`,
+      {
+        update: {
+          "@assetType": "episodes",
+          season: {
+            "@assetType": "seasons",
+            "@key": seasonKey,
+          },
+          episodeNumber: episodeNumber,
+          title: title,
+          releaseDate: releaseDate,
+          description: description,
+          rating: rating,
+        },
+      },
+      {
+        auth: authPayload,
+      },
+    );
+    location.reload();
+    return response;
+  } catch (error) {
+    if (error instanceof AxiosError && error.response) {
+      return error.response.data;
+    }
+  }
+};
+
+export {
+  getEpisodesService,
+  getEpisodeByIdService,
+  addEpisodeService,
+  updateEpisodeService,
+};

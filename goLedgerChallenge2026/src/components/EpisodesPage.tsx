@@ -1,6 +1,7 @@
 import React from "react";
 import { BasicsContext } from "../contexts/BasicsContext";
 import { addEpisodeService } from "../api/services/episodesServices";
+import EditEpisodeScreen from "./EditEpisodeScreen";
 
 export default function EpisodesPage() {
   const {
@@ -14,101 +15,120 @@ export default function EpisodesPage() {
     <div style={{ backgroundColor: "brown" }}>
       <h1>EPISODES</h1>
 
-      <form action="">
-        <br />
-        <strong>Add New Episode</strong>
-        <br />
+      <div style={{ display: "flex", border: "solid 1px red" }}>
+        <form action="" style={{ border: "solid 1px black" }}>
+          <br />
+          <strong>Add New Episode</strong>
+          <br />
 
-        <span>Season key: </span>
-        <input
-          type="text"
-          value={newEpisodeInfos.season["@key"]}
-          onChange={(
-            e: React.ChangeEvent<HTMLInputElement, HTMLInputElement>,
-          ) =>
-            setNewEpisodeInfos({
-              ...newEpisodeInfos,
-              season: { ...newEpisodeInfos.season, "@key": e.target.value },
-            })
-          }
-        />
-        <br />
+          <span>Season key: </span>
+          <input
+            type="text"
+            value={newEpisodeInfos.season["@key"]}
+            onChange={(
+              e: React.ChangeEvent<HTMLInputElement, HTMLInputElement>,
+            ) =>
+              setNewEpisodeInfos({
+                ...newEpisodeInfos,
+                season: { ...newEpisodeInfos.season, "@key": e.target.value },
+              })
+            }
+          />
+          <br />
 
-        <span>Number: </span>
-        <input
-          type="number"
-          value={newEpisodeInfos.episodeNumber}
-          onChange={(
-            e: React.ChangeEvent<HTMLInputElement, HTMLInputElement>,
-          ) =>
-            setNewEpisodeInfos({
-              ...newEpisodeInfos,
-              episodeNumber: Number(e.target.value),
-            })
-          }
-        />
-        <br />
+          <span>Number: </span>
+          <input
+            type="number"
+            value={newEpisodeInfos.episodeNumber}
+            onChange={(
+              e: React.ChangeEvent<HTMLInputElement, HTMLInputElement>,
+            ) =>
+              setNewEpisodeInfos({
+                ...newEpisodeInfos,
+                episodeNumber: Number(e.target.value),
+              })
+            }
+          />
+          <br />
 
-        <span>Title: </span>
-        <input
-          type="text"
-          value={newEpisodeInfos.title}
-          onChange={(
-            e: React.ChangeEvent<HTMLInputElement, HTMLInputElement>,
-          ) =>
-            setNewEpisodeInfos({
-              ...newEpisodeInfos,
-              title: e.target.value,
-            })
-          }
-        />
-        <br />
+          <span>Title: </span>
+          <input
+            type="text"
+            value={newEpisodeInfos.title}
+            onChange={(
+              e: React.ChangeEvent<HTMLInputElement, HTMLInputElement>,
+            ) =>
+              setNewEpisodeInfos({
+                ...newEpisodeInfos,
+                title: e.target.value,
+              })
+            }
+          />
+          <br />
 
-        <span>Release Date: </span>
-        <input
-          type="text"
-          value={newEpisodeInfos.releaseDate}
-          onChange={(
-            e: React.ChangeEvent<HTMLInputElement, HTMLInputElement>,
-          ) =>
-            setNewEpisodeInfos({
-              ...newEpisodeInfos,
-              releaseDate: e.target.value,
-            })
-          }
-        />
-        <br />
+          <span>Release Date: </span>
+          <input
+            type="text"
+            value={newEpisodeInfos.releaseDate}
+            onChange={(
+              e: React.ChangeEvent<HTMLInputElement, HTMLInputElement>,
+            ) =>
+              setNewEpisodeInfos({
+                ...newEpisodeInfos,
+                releaseDate: e.target.value,
+              })
+            }
+          />
+          <br />
 
-        <span>Description: </span>
-        <textarea
-          value={newEpisodeInfos.description}
-          onChange={(
-            e: React.ChangeEvent<HTMLTextAreaElement, HTMLTextAreaElement>,
-          ) =>
-            setNewEpisodeInfos({
-              ...newEpisodeInfos,
-              description: e.target.value,
-            })
-          }
-        />
-        <br />
+          <span>Rating: </span>
+          <input
+            type="number"
+            value={newEpisodeInfos.rating}
+            onChange={(
+              e: React.ChangeEvent<HTMLInputElement, HTMLInputElement>,
+            ) =>
+              setNewEpisodeInfos({
+                ...newEpisodeInfos,
+                rating: Number(e.target.value),
+              })
+            }
+          />
 
-        <button
-          onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-            e.preventDefault();
-            addEpisodeService(
-              newEpisodeInfos.description,
-              newEpisodeInfos.episodeNumber,
-              newEpisodeInfos.rating,
-              newEpisodeInfos.releaseDate,
-              newEpisodeInfos.season["@key"],
-              newEpisodeInfos.title,
-            );
-          }}
-        >
-          Enviar
-        </button>
-      </form>
+          <br />
+
+          <span>Description: </span>
+          <textarea
+            value={newEpisodeInfos.description}
+            onChange={(
+              e: React.ChangeEvent<HTMLTextAreaElement, HTMLTextAreaElement>,
+            ) =>
+              setNewEpisodeInfos({
+                ...newEpisodeInfos,
+                description: e.target.value,
+              })
+            }
+          />
+          <br />
+
+          <button
+            onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+              e.preventDefault();
+              addEpisodeService(
+                newEpisodeInfos.description,
+                newEpisodeInfos.episodeNumber,
+                newEpisodeInfos.rating,
+                newEpisodeInfos.releaseDate,
+                newEpisodeInfos.season["@key"],
+                newEpisodeInfos.title,
+              );
+            }}
+          >
+            Enviar
+          </button>
+        </form>
+        <EditEpisodeScreen episodeNumber={1} seasonKey="seasons:4307a3d9-260d-5acd-9ebb-d57147fcf169"/>
+      </div>
 
       {episodes?.map((e) => (
         <div key={e["@key"]}>

@@ -25,7 +25,7 @@ const getTvShowByIdService = async (title: string) => {
       auth: authPayload,
     },
   );
-  return response.data.result;
+  return response.data;
 };
 
 const addTvShowService = async (
@@ -59,4 +59,29 @@ const addTvShowService = async (
   }
 };
 
-export { getTvShowsService, getTvShowByIdService, addTvShowService };
+const updateTvShowService = async (titleKey: string, description: string, recommendedAge: number) => {
+  try {
+    const response = await axios.post(
+      `${baseUrl}/invoke/updateAsset`,
+      {
+        update: {
+          "@assetType": "tvShows",
+          title: titleKey,
+          description: description,
+          recommendedAge: recommendedAge,
+        },
+      },
+      {
+        auth: authPayload,
+      }
+    );
+    location.reload()
+    return response;
+  } catch (error) {
+    if (error instanceof AxiosError && error.response) {
+      return error.response.data;
+    }
+  }
+};
+
+export { getTvShowsService, getTvShowByIdService, addTvShowService, updateTvShowService };
