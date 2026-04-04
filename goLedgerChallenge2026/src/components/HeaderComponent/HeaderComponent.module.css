@@ -1,0 +1,32 @@
+.container {
+  background-color: #d9d9d9;
+  height: 5rem;
+  width: 100%;
+  padding: 0 4rem;
+  color: black;
+  font-family: Pacifico;
+  display: flex;
+  align-items: center;
+}
+
+.container span {
+  font-size: xx-large;
+}
+
+.container ul {
+  user-select: none;
+  display: flex;
+  justify-content: space-around;
+  font-size: x-large;
+  width: 100%;
+  margin-left: 2rem;
+}
+.container ul li:hover {
+  transition: 0.05s;
+  cursor: pointer;
+  scale: 1.1;
+}
+
+.activePageLI {
+    color: #A30808;
+}

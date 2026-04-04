@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import type { EpisodeType } from "../types/EpisodeType";
+import type { EpisodeType } from "../../../types/EpisodeType";
 import {
   getEpisodeByIdService,
   updateEpisodeService,
-} from "../api/services/episodesServices";
-import { BasicsContext } from "../contexts/BasicsContext";
-import { deleteItem } from "../api/axios";
+} from "../../../api/services/episodesServices";
+import { BasicsContext } from "../../../contexts/BasicsContext";
+import { deleteItem } from "../../../api/axios";
 
 type props = {
   episodeNumber: number;

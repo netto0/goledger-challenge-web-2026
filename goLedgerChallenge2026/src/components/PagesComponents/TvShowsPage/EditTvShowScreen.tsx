@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import {
   getTvShowByIdService,
   updateTvShowService,
-} from "../api/services/tvShowsServices";
-import type { TvShowType } from "../types/TvShowType";
-import { deleteItem } from "../api/axios";
+} from "../../../api/services/tvShowsServices";
+import type { TvShowType } from "../../../types/TvShowType";
+import { deleteItem } from "../../../api/axios";
 
 type props = {
   title: string;

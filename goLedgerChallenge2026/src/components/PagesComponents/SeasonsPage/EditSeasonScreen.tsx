@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { BasicsContext } from "../contexts/BasicsContext";
-import type { SeasonType } from "../types/SeasonType";
+import { BasicsContext } from "../../../contexts/BasicsContext";
+import type { SeasonType } from "../../../types/SeasonType";
 import {
   getSeasonByIdService,
   updateSeasonService,
-} from "../api/services/seasonsServices";
-import { deleteItem } from "../api/axios";
+} from "../../../api/services/seasonsServices";
+import { deleteItem } from "../../../api/axios";
 
 type props = {
   number: number;

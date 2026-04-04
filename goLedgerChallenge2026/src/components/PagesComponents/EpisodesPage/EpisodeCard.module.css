@@ -1,0 +1,62 @@
+.cardContainer {
+  background-color: #9f9f9f;
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+}
+
+.cardContainer:hover {
+  transition: 0.1s;
+  scale: 1.02;
+  cursor: pointer;
+}
+.episodeInfos {
+  display: flex;
+  padding-left: 0.5rem;
+  gap: 1rem;
+}
+.episodeInfos span {
+  font-family: "Afacad";
+  color: #3f3f3f;
+  font-size: medium;
+  font-weight: 300;
+}
+
+.cardContainer h1 {
+  font-family: "Pacifico";
+  font-size: x-large;
+  font-weight: 100;
+  /* margin-bottom: -0.5rem; */
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: "Afacad";
+  font-size: 2rem;
+  font-weight: bold;
+  margin-left: 0.5rem;
+}
+
+.rating svg {
+  color: yellow;
+  font-size: 2.5rem;
+}
+.description {
+  display: -webkit-box;
+  width: 100%;
+  height: 2rem;
+  margin-top: .3rem;
+  font-size: medium;
+  font-family: "Afacad";
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  min-width: 0;
+  line-height: 1;
+  overflow: hidden;
+}

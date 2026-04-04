@@ -1,0 +1,36 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.container svg {
+  font-size: 3rem;
+}
+
+.container svg:hover {
+  transition: 0.1s;
+  cursor: pointer;
+  scale: 1.1;
+}
+
+.titleContainer {
+  display: flex;
+  flex-direction: column;
+  font-family: "Afacad";
+  gap: 0;
+  padding: 1rem 0;
+}
+
+.titleContainer h1 {
+  color: black;
+  margin-bottom: -1rem;
+  font-size: 3rem;
+  font-weight: 800;
+}
+
+.titleContainer span {
+  color: #161616;
+  font-size: medium;
+  font-weight: 200;
+}

@@ -12,6 +12,16 @@ import { getSeasonsService } from "../api/services/seasonsServices";
 import { getEpisodesService } from "../api/services/episodesServices";
 import { getWatchListsService } from "../api/services/watchListsServices";
 
+export type ActivePageType =
+  | "tvShows"
+  | "addTvShow"
+  | "seasons"
+  | "addSeason"
+  | "episodes"
+  | "addEpisode"
+  | "watchlists"
+  | "addWatchlist";
+
 export const BasicsProvider = (props: { children: React.ReactNode }) => {
   const [tvShows, setTvShows] = useState<TvShowType[]>([]);
   const [seasons, setSeasons] = useState<SeasonType[]>([]);
@@ -26,6 +36,7 @@ export const BasicsProvider = (props: { children: React.ReactNode }) => {
   const [newWatchListInfos, setNewWatchListInfos] = useState<WatchListType>(
     watchListInitialValues,
   );
+  const [activePage, setActivePage] = useState<ActivePageType>("tvShows");
 
   const getTvShows = async () => {
     const tvShows = await getTvShowsService();
@@ -89,6 +100,8 @@ export const BasicsProvider = (props: { children: React.ReactNode }) => {
         setNewEpisodeInfos,
         newWatchListInfos,
         setNewWatchListInfos,
+        activePage,
+        setActivePage,
         getTvShows,
         getSeasons,
         getEpisodes,

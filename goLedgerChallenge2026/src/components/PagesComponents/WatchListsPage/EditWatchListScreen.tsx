@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import type { WatchListType } from "../types/WatchListType";
+import type { WatchListType } from "../../../types/WatchListType";
 import {
   getWatchListByIdService,
   updateWatchListService,
-} from "../api/services/watchListsServices";
-import { BasicsContext } from "../contexts/BasicsContext";
-import { deleteItem } from "../api/axios";
+} from "../../../api/services/watchListsServices";
+import { BasicsContext } from "../../../contexts/BasicsContext";
+import { deleteItem } from "../../../api/axios";
 
 type props = {
   title: string;
@@ -71,7 +71,7 @@ export default function EditWatchListScreen({ title }: props) {
           updateWatchListService(
             editWatchListInfos.title,
             editWatchListInfos.tvShows,
-            editWatchListInfos.description
+            editWatchListInfos.description,
           );
         }}
       >

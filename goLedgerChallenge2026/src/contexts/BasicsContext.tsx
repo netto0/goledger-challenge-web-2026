@@ -6,6 +6,7 @@ import {
   watchListInitialValues,
   type WatchListType,
 } from "../types/WatchListType";
+import type { ActivePageType } from "./BasicsProvider";
 
 type BasicsType = {
   tvShows: TvShowType[];
@@ -24,6 +25,8 @@ type BasicsType = {
   setNewEpisodeInfos: React.Dispatch<React.SetStateAction<EpisodeType>>;
   newWatchListInfos: WatchListType;
   setNewWatchListInfos: React.Dispatch<React.SetStateAction<WatchListType>>;
+  activePage: ActivePageType;
+  setActivePage: React.Dispatch<React.SetStateAction<ActivePageType>>;
   getTvShows: () => Promise<void>;
   getSeasons: () => Promise<void>;
   getEpisodes: () => Promise<void>;
@@ -51,6 +54,8 @@ export const BasicsContext = createContext<BasicsType>({
   setNewEpisodeInfos: () => {},
   newWatchListInfos: watchListInitialValues,
   setNewWatchListInfos: () => {},
+  activePage: "tvShows",
+  setActivePage: () => {},
   getTvShows: async () => {},
   getSeasons: async () => {},
   getEpisodes: async () => {},
