@@ -13,6 +13,7 @@ const getTvShowsService = async () => {
 };
 
 const getTvShowByIdService = async (title: string) => {
+  console.log("exec " + title)
   const response = await axios.post(
     `${baseUrl}/query/readAsset`,
     {

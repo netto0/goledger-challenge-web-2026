@@ -1,81 +1,71 @@
-import { useEffect, useState } from "react";
-import {
-  getTvShowByIdService,
-  updateTvShowService,
-} from "../../../api/services/tvShowsServices";
-import type { TvShowType } from "../../../types/TvShowType";
+import React from "react";
+import { updateTvShowService } from "../../../api/services/tvShowsServices";
 import { deleteItem } from "../../../api/axios";
+import PageContainer from "../../PageContainer/PageContainer";
+import FormContainer from "../../FormContainer/FormContainer";
+import PageTitleContainer from "../../PageTitleContainer/PageTitleContainer";
+import InputComponent from "../../InputComponent/InputComponent";
+import ButtonComponent from "../../ButtonComponent/ButtonComponent";
+import { BasicsContext } from "../../../contexts/BasicsContext";
 
-type props = {
-  title: string;
-};
-
-export default function EditTvShowScreen({ title }: props) {
-  const initialValues = {
-    "@key": "",
-    title: title,
-    recommendedAge: 0,
-    description: "",
-  };
-
-  const [editTvShowInfos, setEditTvShowInfos] =
-    useState<TvShowType>(initialValues);
-
-  useEffect(() => {
-    const getTvShow = async () => {
-      const response = await getTvShowByIdService(title);
-      setEditTvShowInfos(response);
-    };
-
-    getTvShow();
-  }, []);
+export default function EditTvShowScreen() {
+  const { newTvShowInfos, setNewTvShowInfos, setActivePage } =
+    React.useContext(BasicsContext);
 
   return (
-    <form action="" style={{ border: "solid 1px black" }}>
-      <strong>Edit Tv Show</strong>
-      <h3>{editTvShowInfos.title}</h3>
-      <span>Description: </span>
-      <textarea
-        value={editTvShowInfos.description}
-        onChange={(e) =>
-          setEditTvShowInfos({
-            ...editTvShowInfos,
-            description: e.target.value,
-          })
-        }
-      />
-      <br />
-      <span>Recommended Age: </span>
-      <input
-        type="number"
-        value={editTvShowInfos.recommendedAge}
-        onChange={(e) =>
-          setEditTvShowInfos({
-            ...editTvShowInfos,
-            recommendedAge: Number(e.target.value),
-          })
-        }
-      />
-      <button
-        onClick={(e) => {
-          e.preventDefault();
-          updateTvShowService(
-            editTvShowInfos.title,
-            editTvShowInfos.description,
-            editTvShowInfos.recommendedAge,
-          );
-        }}
-      >
-        Enviar
-      </button>
-      <button
-        onClick={(e) => {
-          e.preventDefault();
-          deleteItem(editTvShowInfos["@key"]);
-        }}
-      >
-        DELETAR SHOW
-      </button>
-    </form>
+    <PageContainer>
+      <FormContainer>
+        <PageTitleContainer
+          title={newTvShowInfos.title}
+          buttonType="back"
+          buttonFunc={() => setActivePage("tvShows")}
+        />
+        <InputComponent
+          label="Description"
+          type="textarea"
+          value={newTvShowInfos.description}
+          handleChange={(e) =>
+            setNewTvShowInfos({
+              ...newTvShowInfos,
+              description: e.target.value,
+            })
+          }
+        />
+
+        <InputComponent
+          label="Recommended Age"
+          type="number"
+          value={newTvShowInfos.recommendedAge}
+          handleChange={(e) =>
+            setNewTvShowInfos({
+              ...newTvShowInfos,
+              recommendedAge: Number(e.target.value),
+            })
+          }
+        />
+
+        <ButtonComponent
+          color="green"
+          label="Enviar"
+          onClickFunc={(e) => {
+            e.preventDefault();
+            updateTvShowService(
+              newTvShowInfos.title,
+              newTvShowInfos.description,
+              newTvShowInfos.recommendedAge,
+            );
+          }}
+        />
+
+        <ButtonComponent
+          color="red"
+          label="DELETAR SHOW"
+          onClickFunc={(e) => {
+            e.preventDefault();
+            deleteItem(newTvShowInfos["@key"]);
+          }}
+        />
+      </FormContainer>
+    </PageContainer>
   );
 }

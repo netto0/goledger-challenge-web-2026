@@ -7,29 +7,45 @@ export default function HeaderComponent() {
 
   return (
     <header className={styles.container}>
-      <span>ShowsIndex</span>
+      <span className={styles.logo} onClick={() => setActivePage("tvShows")}>
+        ShowsIndex
+      </span>
       <ul>
         <li
-          className={activePage == "tvShows" ? styles.activePageLI : undefined}
+          className={
+            ["tvShows", "addTvShow", "editTvShow"].includes(activePage)
+              ? styles.activePageLI
+              : undefined
+          }
           onClick={() => setActivePage("tvShows")}
         >
           TvShows
         </li>
         <li
-          className={activePage == "seasons" ? styles.activePageLI : undefined}
+          className={
+            ["seasons", "addSeason", "editSeason"].includes(activePage)
+              ? styles.activePageLI
+              : undefined
+          }
           onClick={() => setActivePage("seasons")}
         >
           Seasons
         </li>
         <li
-          className={activePage == "episodes" ? styles.activePageLI : undefined}
+          className={
+            ["episodes", "addEpisode", "editEpisode"].includes(activePage)
+              ? styles.activePageLI
+              : undefined
+          }
           onClick={() => setActivePage("episodes")}
         >
           Episodes
         </li>
         <li
           className={
-            activePage == "watchlists" ? styles.activePageLI : undefined
+            ["watchlists", "addWatchlist", "editWatchlist"].includes(activePage)
+              ? styles.activePageLI
+              : undefined
           }
           onClick={() => setActivePage("watchlists")}
         >

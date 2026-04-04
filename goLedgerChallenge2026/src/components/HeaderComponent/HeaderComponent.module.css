@@ -9,6 +9,12 @@
   align-items: center;
 }
 
+.logo:hover {
+  transition: 0.05s;
+  cursor: pointer;
+  scale: 1.1;
+}
+
 .container span {
   font-size: xx-large;
 }
@@ -28,5 +34,5 @@
 }
 
 .activePageLI {
-    color: #A30808;
+  color: #a30808;
 }

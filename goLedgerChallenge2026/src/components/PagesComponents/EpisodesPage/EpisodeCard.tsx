@@ -9,11 +9,22 @@ type props = {
 };
 
 export default function EpisodeCard({ episode }: props) {
-  const { getTvShowBySeasonId, getSeasonNumber } =
-    React.useContext(BasicsContext);
+  const {
+    getTvShowBySeasonId,
+    getSeasonNumber,
+    setActivePage,
+    setNewEpisodeInfos,
+  } = React.useContext(BasicsContext);
 
   return (
-    <div key={episode["@key"]} className={styles.cardContainer}>
+    <div
+      key={episode["@key"]}
+      className={styles.cardContainer}
+      onClick={() => {
+        setNewEpisodeInfos(episode);
+        setActivePage("editEpisode");
+      }}
+    >
       <div>
         <h1>{episode.title}</h1>
         <div className={styles.episodeInfos}>

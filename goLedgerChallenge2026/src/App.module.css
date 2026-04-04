@@ -1,0 +1,8 @@
+.mainContainer {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: black;
+  min-height: 100vh;
+}

@@ -1,5 +1,5 @@
+import styles from "./App.module.css";
 import React, { useEffect } from "react";
-import "./App.css";
 import TvShowsPage from "./components/PagesComponents/TvShowsPage/TvShowsPage";
 import { BasicsContext } from "./contexts/BasicsContext";
 import HeaderComponent from "./components/HeaderComponent/HeaderComponent";
@@ -11,6 +11,10 @@ import TvShowForm from "./components/PagesComponents/TvShowsPage/TvShowForm";
 import SeasonForm from "./components/PagesComponents/SeasonsPage/SeasonForm";
 import EpisodeForm from "./components/PagesComponents/EpisodesPage/EpisodeForm";
 import WatchListForm from "./components/PagesComponents/WatchListsPage/WatchListForm";
+import EditTvShowScreen from "./components/PagesComponents/TvShowsPage/EditTvShowScreen";
+import EditSeasonScreen from "./components/PagesComponents/SeasonsPage/EditSeasonScreen";
+import EditEpisodeScreen from "./components/PagesComponents/EpisodesPage/EditEpisodeScreen";
+import EditWatchListScreen from "./components/PagesComponents/WatchListsPage/EditWatchListScreen";
 
 function App() {
   const { getTvShows, getSeasons, getEpisodes, getWatchLists, activePage } =
@@ -24,16 +28,20 @@ function App() {
   }, []);
 
   return (
-    <div style={{ backgroundColor: "white", color: "black" }}>
+    <div className={styles.mainContainer}>
       <HeaderComponent />
       {activePage == "tvShows" && <TvShowsPage />}
       {activePage == "addTvShow" && <TvShowForm />}
+      {activePage == "editTvShow" && <EditTvShowScreen />}
       {activePage == "seasons" && <SeasonsPage />}
       {activePage == "addSeason" && <SeasonForm />}
+      {activePage == "editSeason" && <EditSeasonScreen />}
       {activePage == "episodes" && <EpisodesPage />}
       {activePage == "addEpisode" && <EpisodeForm />}
+      {activePage == "editEpisode" && <EditEpisodeScreen />}
       {activePage == "watchlists" && <WatchListsPage />}
       {activePage == "addWatchlist" && <WatchListForm />}
+      {activePage == "editWatchlist" && <EditWatchListScreen />}
       <FooterComponent />
     </div>
   );

@@ -1,80 +1,61 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { BasicsContext } from "../../../contexts/BasicsContext";
-import type { SeasonType } from "../../../types/SeasonType";
-import {
-  getSeasonByIdService,
-  updateSeasonService,
-} from "../../../api/services/seasonsServices";
+import { updateSeasonService } from "../../../api/services/seasonsServices";
 import { deleteItem } from "../../../api/axios";
+import PageContainer from "../../PageContainer/PageContainer";
+import FormContainer from "../../FormContainer/FormContainer";
+import PageTitleContainer from "../../PageTitleContainer/PageTitleContainer";
+import InputComponent from "../../InputComponent/InputComponent";
+import ButtonComponent from "../../ButtonComponent/ButtonComponent";
 
-type props = {
-  number: number;
-  tvShowKey: string;
-};
-
-export default function EditSeasonScreen({ number, tvShowKey }: props) {
-  const initialValues = {
-    "@key": "",
-    number: number,
-    tvShow: {
-      "@assetType": "tvShows",
-      "@key": tvShowKey,
-    },
-    year: 0,
-  };
-
-  const [editSeasonInfos, setEditSeasonInfos] =
-    useState<SeasonType>(initialValues);
-
-  useEffect(() => {
-    const getSeason = async () => {
-      const response = await getSeasonByIdService(number, tvShowKey);
-      setEditSeasonInfos(response);
-    };
-
-    getSeason();
-  }, []);
-
-  const { getTvShowBySeasonId } = React.useContext(BasicsContext);
+export default function EditSeasonScreen() {
+  const {
+    newSeasonInfos,
+    setNewSeasonInfos,
+    getTvShowBySeasonId,
+    setActivePage,
+  } = React.useContext(BasicsContext);
 
   return (
-    <form action="" style={{ border: "solid 1px black" }}>
-      <strong>Edit Season</strong>
-      <h3>
-        {getTvShowBySeasonId(editSeasonInfos["@key"])} -{" "}
-        {editSeasonInfos.number}
-      </h3>
-      <span>Year: </span>
-      <input
-        type="number"
-        value={editSeasonInfos.year}
-        onChange={(e) =>
-          setEditSeasonInfos({
-            ...editSeasonInfos,
-            year: Number(e.target.value),
-          })
-        }
-      />
-      <button
-        onClick={(e) => {
-          e.preventDefault();
-          updateSeasonService(
-            editSeasonInfos.number,
-            editSeasonInfos.tvShow["@key"],
-            editSeasonInfos.year,
-          );
-        }}
-      >
-        Enviar
-      </button>
-      <button
-        onClick={(e) => {
-          e.preventDefault();
-          deleteItem(editSeasonInfos["@key"]);
-        }}
-      >
-        DELETAR SEASON
-      </button>
-    </form>
+    <PageContainer>
+      <FormContainer>
+        <PageTitleContainer
+          title={`${getTvShowBySeasonId(newSeasonInfos["@key"])} #${newSeasonInfos.number}`}
+          buttonType="back"
+          buttonFunc={() => setActivePage("seasons")}
+        />
+        <InputComponent
+          label="Year"
+          type="number"
+          value={newSeasonInfos.year}
+          handleChange={(e) =>
+            setNewSeasonInfos({
+              ...newSeasonInfos,
+              year: Number(e.target.value),
+            })
+          }
+        />
+        <ButtonComponent
+          color="green"
+          label="Enviar"
+          onClickFunc={(e) => {
+            e.preventDefault();
+            updateSeasonService(
+              newSeasonInfos.number,
+              newSeasonInfos.tvShow["@key"],
+              newSeasonInfos.year,
+            );
+          }}
+        />
+        <ButtonComponent
+          color="red"
+          label="DELETAR SEASON"
+          onClickFunc={(e) => {
+            e.preventDefault();
+            deleteItem(newSeasonInfos["@key"]);
+          }}
+        />
+      </FormContainer>
+    </PageContainer>
   );
 }

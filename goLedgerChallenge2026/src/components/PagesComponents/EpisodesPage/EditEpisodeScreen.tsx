@@ -1,127 +1,104 @@
-import React, { useEffect, useState } from "react";
-import type { EpisodeType } from "../../../types/EpisodeType";
-import {
-  getEpisodeByIdService,
-  updateEpisodeService,
-} from "../../../api/services/episodesServices";
+import React from "react";
+import { updateEpisodeService } from "../../../api/services/episodesServices";
 import { BasicsContext } from "../../../contexts/BasicsContext";
 import { deleteItem } from "../../../api/axios";
+import PageContainer from "../../PageContainer/PageContainer";
+import FormContainer from "../../FormContainer/FormContainer";
+import PageTitleContainer from "../../PageTitleContainer/PageTitleContainer";
+import InputComponent from "../../InputComponent/InputComponent";
+import ButtonComponent from "../../ButtonComponent/ButtonComponent";
 
-type props = {
-  episodeNumber: number;
-  seasonKey: string;
-};
-
-export default function EditEpisodeScreen({ episodeNumber, seasonKey }: props) {
-  const { getTvShowBySeasonId, getSeasonNumber } =
-    React.useContext(BasicsContext);
-  const initialValues = {
-    "@key": "",
-    season: {
-      "@assetType": "seasons",
-      "@key": seasonKey,
-    },
-    episodeNumber: episodeNumber,
-    title: "",
-    description: "",
-    releaseDate: "",
-    rating: 0,
-  };
-
-  const [editEpisodeInfos, setEditEpisodeInfos] =
-    useState<EpisodeType>(initialValues);
-
-  useEffect(() => {
-    const getEpisode = async () => {
-      const response = await getEpisodeByIdService(seasonKey, episodeNumber);
-      setEditEpisodeInfos(response);
-    };
-
-    getEpisode();
-  }, []);
+export default function EditEpisodeScreen() {
+  const {
+    getSeasonNumber,
+    newEpisodeInfos,
+    setNewEpisodeInfos,
+    getTvShowBySeasonId,
+    setActivePage,
+  } = React.useContext(BasicsContext);
 
   return (
-    <form action="" style={{ border: "solid 1px black" }}>
-      {JSON.stringify(editEpisodeInfos)}
-      <strong>Edit Tv Show</strong>
-      <h3>
-        <span>{getTvShowBySeasonId(seasonKey)}</span> -{" "}
-        <span>S{getSeasonNumber(seasonKey)}</span> - Ep
-        <span>{editEpisodeInfos.episodeNumber}</span>
-      </h3>
+    <PageContainer>
+      <FormContainer>
+        <PageTitleContainer
+          title={`${getTvShowBySeasonId(newEpisodeInfos.season["@key"])} S${getSeasonNumber(newEpisodeInfos.season["@key"])} Ep${newEpisodeInfos.episodeNumber}`}
+          buttonType="back"
+          buttonFunc={() => setActivePage("episodes")}
+        />
 
-      <span>Title: </span>
-      <input
-        type="text"
-        value={editEpisodeInfos.title}
-        onChange={(e) =>
-          setEditEpisodeInfos({
-            ...editEpisodeInfos,
-            title: e.target.value,
-          })
-        }
-      />
-      <br />
+        <InputComponent
+          label="Title"
+          type="text"
+          value={newEpisodeInfos.title}
+          handleChange={(e) =>
+            setNewEpisodeInfos({
+              ...newEpisodeInfos,
+              title: e.target.value,
+            })
+          }
+        />
 
-      <span>Release date: </span>
-      <input
-        type="text"
-        value={editEpisodeInfos.releaseDate}
-        onChange={(e) =>
-          setEditEpisodeInfos({
-            ...editEpisodeInfos,
-            releaseDate: e.target.value,
-          })
-        }
-      />
-      <br />
+        <InputComponent
+          label="Release date"
+          type="text"
+          value={newEpisodeInfos.releaseDate}
+          handleChange={(e) =>
+            setNewEpisodeInfos({
+              ...newEpisodeInfos,
+              releaseDate: e.target.value,
+            })
+          }
+        />
 
-      <span>Rating: </span>
-      <input
-        type="number"
-        value={editEpisodeInfos.rating}
-        onChange={(e) =>
-          setEditEpisodeInfos({
-            ...editEpisodeInfos,
-            rating: Number(e.target.value),
-          })
-        }
-      />
+        <InputComponent
+          label="Rating"
+          type="number"
+          value={newEpisodeInfos.rating}
+          handleChange={(e) =>
+            setNewEpisodeInfos({
+              ...newEpisodeInfos,
+              rating: Number(e.target.value),
+            })
+          }
+        />
 
-      <br />
-      <span>Description: </span>
-      <textarea
-        value={editEpisodeInfos.description}
-        onChange={(e) =>
-          setEditEpisodeInfos({
-            ...editEpisodeInfos,
-            description: e.target.value,
-          })
-        }
-      />
-      <button
-        onClick={(e) => {
-          e.preventDefault();
-          updateEpisodeService(
-            editEpisodeInfos.season["@key"],
-            editEpisodeInfos.episodeNumber,
-            editEpisodeInfos.title,
-            editEpisodeInfos.releaseDate,
-            editEpisodeInfos.description,
-            editEpisodeInfos.rating,
-          );
-        }}
-      >
-        Enviar
-      </button>
-      <button
-        onClick={(e) => {
-          e.preventDefault();
-          deleteItem(editEpisodeInfos["@key"]);
-        }}
-      >
-        DELETAR EP
-      </button>
-    </form>
+        <InputComponent
+          label="Description"
+          type="textarea"
+          value={newEpisodeInfos.description}
+          handleChange={(e) =>
+            setNewEpisodeInfos({
+              ...newEpisodeInfos,
+              description: e.target.value,
+            })
+          }
+        />
+
+        <ButtonComponent
+          color="green"
+          label="Enviar"
+          onClickFunc={(e) => {
+            e.preventDefault();
+            updateEpisodeService(
+              newEpisodeInfos.season["@key"],
+              newEpisodeInfos.episodeNumber,
+              newEpisodeInfos.title,
+              newEpisodeInfos.releaseDate,
+              newEpisodeInfos.description,
+              newEpisodeInfos.rating,
+            );
+          }}
+        />
+
+        <ButtonComponent
+          color="red"
+          label="DELETAR EP"
+          onClickFunc={(e) => {
+            e.preventDefault();
+            deleteItem(newEpisodeInfos["@key"]);
+          }}
+        />
+      </FormContainer>
+    </PageContainer>
   );
 }

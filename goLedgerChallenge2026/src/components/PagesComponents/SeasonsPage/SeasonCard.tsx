@@ -8,10 +8,18 @@ type props = {
 };
 
 export default function SeasonCard({ season }: props) {
-  const { getTvShowTitle, getEpisodesCount } = React.useContext(BasicsContext);
+  const { getTvShowTitle, getEpisodesCount, setActivePage, setNewSeasonInfos } =
+    React.useContext(BasicsContext);
 
   return (
-    <div key={season["@key"]} className={styles.cardContainer}>
+    <div
+      key={season["@key"]}
+      className={styles.cardContainer}
+      onClick={() => {
+        setNewSeasonInfos(season);
+        setActivePage("editSeason");
+      }}
+    >
       <div>
         <h1>{getTvShowTitle(season.tvShow["@key"])}</h1>
         <div className={styles.seasonInfos}>

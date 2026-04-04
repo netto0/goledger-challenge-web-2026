@@ -15,12 +15,16 @@ import { getWatchListsService } from "../api/services/watchListsServices";
 export type ActivePageType =
   | "tvShows"
   | "addTvShow"
+  | "editTvShow"
   | "seasons"
   | "addSeason"
+  | "editSeason"
   | "episodes"
   | "addEpisode"
+  | "editEpisode"
   | "watchlists"
-  | "addWatchlist";
+  | "addWatchlist"
+  | "editWatchlist";
 
 export const BasicsProvider = (props: { children: React.ReactNode }) => {
   const [tvShows, setTvShows] = useState<TvShowType[]>([]);
