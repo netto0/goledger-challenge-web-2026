@@ -6,15 +6,19 @@ import PageContainer from "../../PageContainer/PageContainer";
 import FormContainer from "../../FormContainer/FormContainer";
 import InputComponent from "../../InputComponent/InputComponent";
 import ButtonComponent from "../../ButtonComponent/ButtonComponent";
-// import EditSeasonScreen from "./EditSeasonScreen";
 
 export default function SeasonForm() {
-  const { newSeasonInfos, setNewSeasonInfos } = React.useContext(BasicsContext);
+  const { newSeasonInfos, setNewSeasonInfos, setActivePage } =
+    React.useContext(BasicsContext);
 
   return (
     <PageContainer>
       <FormContainer>
-        <PageTitleContainer title="Add new Season" />
+        <PageTitleContainer
+          title="Add new Season"
+          buttonType="back"
+          buttonFunc={() => setActivePage("seasons")}
+        />
 
         <InputComponent
           label="Tv Show Key"
@@ -67,10 +71,4 @@ export default function SeasonForm() {
       </FormContainer>
     </PageContainer>
   );
-  {
-    /* <EditSeasonScreen
-        number={1}
-        tvShowKey="tvShows:03fa3227-3e4a-593c-a730-d88495e511ca"
-        /> */
-  }
 }

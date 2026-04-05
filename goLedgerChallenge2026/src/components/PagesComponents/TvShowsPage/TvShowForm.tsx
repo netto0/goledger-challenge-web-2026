@@ -1,7 +1,6 @@
 import React from "react";
 import { BasicsContext } from "../../../contexts/BasicsContext";
 import { addTvShowService } from "../../../api/services/tvShowsServices";
-// import EditTvShowScreen from "./EditTvShowScreen";
 import PageTitleContainer from "../../PageTitleContainer/PageTitleContainer";
 import PageContainer from "../../PageContainer/PageContainer";
 import InputComponent from "../../InputComponent/InputComponent";
@@ -9,13 +8,18 @@ import ButtonComponent from "../../ButtonComponent/ButtonComponent";
 import FormContainer from "../../FormContainer/FormContainer";
 
 export default function TvShowForm() {
-  const { newTvShowInfos, setNewTvShowInfos } = React.useContext(BasicsContext);
+  const { newTvShowInfos, setNewTvShowInfos, setActivePage } =
+    React.useContext(BasicsContext);
 
   return (
     <div>
       <PageContainer>
         <FormContainer>
-          <PageTitleContainer title="Add new Tv Show" />
+          <PageTitleContainer
+            title="Add new Tv Show"
+            buttonType="back"
+            buttonFunc={() => setActivePage("tvShows")}
+          />
 
           <InputComponent
             label="Title"
@@ -48,7 +52,7 @@ export default function TvShowForm() {
             }
           />
           <ButtonComponent
-            label="ADD NEW"
+            label="ADD NEW SHOW"
             color="green"
             onClickFunc={(
               e: React.MouseEvent<HTMLButtonElement, MouseEvent>,

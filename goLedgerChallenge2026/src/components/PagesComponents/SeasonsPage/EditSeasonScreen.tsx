@@ -7,6 +7,7 @@ import FormContainer from "../../FormContainer/FormContainer";
 import PageTitleContainer from "../../PageTitleContainer/PageTitleContainer";
 import InputComponent from "../../InputComponent/InputComponent";
 import ButtonComponent from "../../ButtonComponent/ButtonComponent";
+import EpisodeCard from "../EpisodesPage/EpisodeCard";
 
 export default function EditSeasonScreen() {
   const {
@@ -14,7 +15,12 @@ export default function EditSeasonScreen() {
     setNewSeasonInfos,
     getTvShowBySeasonId,
     setActivePage,
+    episodes,
   } = React.useContext(BasicsContext);
+
+  const seasonEpisodes = episodes.filter(
+    (ep) => ep.season["@key"] == newSeasonInfos["@key"],
+  );
 
   return (
     <PageContainer>
@@ -35,6 +41,20 @@ export default function EditSeasonScreen() {
             })
           }
         />
+
+        <h1
+          style={{
+            fontFamily: "Afacad",
+            fontWeight: "bold",
+            fontSize: "1.5rem",
+          }}
+          id="sectionTitle"
+        >
+          Seasons
+        </h1>
+        {seasonEpisodes.map((episode) => (
+          <EpisodeCard episode={episode} />
+        ))}
         <ButtonComponent
           color="green"
           label="Enviar"

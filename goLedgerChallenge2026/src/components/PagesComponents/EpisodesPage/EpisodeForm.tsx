@@ -1,7 +1,6 @@
 import React from "react";
 import { BasicsContext } from "../../../contexts/BasicsContext";
 import { addEpisodeService } from "../../../api/services/episodesServices";
-// import EditEpisodeScreen from "./EditEpisodeScreen";
 import PageContainer from "../../PageContainer/PageContainer";
 import FormContainer from "../../FormContainer/FormContainer";
 import PageTitleContainer from "../../PageTitleContainer/PageTitleContainer";
@@ -9,13 +8,17 @@ import InputComponent from "../../InputComponent/InputComponent";
 import ButtonComponent from "../../ButtonComponent/ButtonComponent";
 
 export default function EpisodeForm() {
-  const { newEpisodeInfos, setNewEpisodeInfos } =
+  const { newEpisodeInfos, setNewEpisodeInfos, setActivePage } =
     React.useContext(BasicsContext);
 
   return (
     <PageContainer>
       <FormContainer>
-        <PageTitleContainer title="Add New Episode" />
+        <PageTitleContainer
+          title="Add New Episode"
+          buttonType="back"
+          buttonFunc={() => setActivePage("episodes")}
+        />
 
         <InputComponent
           label="Season key"
@@ -107,10 +110,4 @@ export default function EpisodeForm() {
       </FormContainer>
     </PageContainer>
   );
-}
-{
-  /* <EditEpisodeScreen
-        episodeNumber={1}
-        seasonKey="seasons:4307a3d9-260d-5acd-9ebb-d57147fcf169"
-      /> */
 }

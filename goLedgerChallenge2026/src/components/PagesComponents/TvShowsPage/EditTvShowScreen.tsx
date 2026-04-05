@@ -7,10 +7,15 @@ import PageTitleContainer from "../../PageTitleContainer/PageTitleContainer";
 import InputComponent from "../../InputComponent/InputComponent";
 import ButtonComponent from "../../ButtonComponent/ButtonComponent";
 import { BasicsContext } from "../../../contexts/BasicsContext";
+import SeasonCard from "../SeasonsPage/SeasonCard";
 
 export default function EditTvShowScreen() {
-  const { newTvShowInfos, setNewTvShowInfos, setActivePage } =
+  const { newTvShowInfos, setNewTvShowInfos, setActivePage, seasons } =
     React.useContext(BasicsContext);
+
+  const tvShowSeasons = seasons.filter(
+    (s) => s.tvShow["@key"] == newTvShowInfos["@key"],
+  );
 
   return (
     <PageContainer>
@@ -44,9 +49,23 @@ export default function EditTvShowScreen() {
           }
         />
 
+        <h1
+          style={{
+            fontFamily: "Afacad",
+            fontWeight: "bold",
+            fontSize: "1.5rem",
+          }}
+          id="sectionTitle"
+        >
+          Seasons: {tvShowSeasons.length}
+        </h1>
+        {tvShowSeasons.map((season) => (
+          <SeasonCard season={season} />
+        ))}
+
         <ButtonComponent
           color="green"
-          label="Enviar"
+          label="UPDATE SHOW"
           onClickFunc={(e) => {
             e.preventDefault();
             updateTvShowService(
@@ -59,7 +78,7 @@ export default function EditTvShowScreen() {
 
         <ButtonComponent
           color="red"
-          label="DELETAR SHOW"
+          label="DELETE SHOW"
           onClickFunc={(e) => {
             e.preventDefault();
             deleteItem(newTvShowInfos["@key"]);

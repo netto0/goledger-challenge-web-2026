@@ -7,10 +7,9 @@ import PageTitleContainer from "../../PageTitleContainer/PageTitleContainer";
 import InputComponent from "../../InputComponent/InputComponent";
 import ButtonComponent from "../../ButtonComponent/ButtonComponent";
 import SelectComponent from "../../SelectComponent/SelectComponent";
-// import EditWatchListScreen from "./EditWatchListScreen";
 
 export default function WatchListForm() {
-  const { tvShows, newWatchListInfos, setNewWatchListInfos } =
+  const { tvShows, newWatchListInfos, setNewWatchListInfos, setActivePage } =
     React.useContext(BasicsContext);
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -24,7 +23,11 @@ export default function WatchListForm() {
   return (
     <PageContainer>
       <FormContainer>
-        <PageTitleContainer title="Add New Watch List" />
+        <PageTitleContainer
+          title="Add New Watch List"
+          buttonType="back"
+          buttonFunc={() => setActivePage("watchlists")}
+        />
 
         <InputComponent
           label="Title"
@@ -50,17 +53,6 @@ export default function WatchListForm() {
           }
         />
 
-        {/* <span>Tv Shows: </span>
-
-        <select multiple={true} onChange={(e) => handleChange(e)}>
-          <option value="default"></option>
-          {tvShows.map((tvShow) => (
-            <option key={tvShow["@key"]} value={tvShow["@key"]}>
-              {tvShow.title}
-            </option>
-          ))}
-        </select> */}
-
         <SelectComponent
           label="Tv Shows"
           optionsList={tvShows}
@@ -82,7 +74,4 @@ export default function WatchListForm() {
       </FormContainer>
     </PageContainer>
   );
-}
-{
-  /* <EditWatchListScreen title="ssssssssssssssssssssssss" /> */
 }
