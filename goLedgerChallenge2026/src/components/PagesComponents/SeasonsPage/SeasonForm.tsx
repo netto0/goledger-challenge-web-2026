@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BasicsContext } from "../../../contexts/BasicsContext";
 import { addSeasonService } from "../../../api/services/seasonsServices";
 import PageTitleContainer from "../../PageTitleContainer/PageTitleContainer";
@@ -6,10 +6,29 @@ import PageContainer from "../../PageContainer/PageContainer";
 import FormContainer from "../../FormContainer/FormContainer";
 import InputComponent from "../../InputComponent/InputComponent";
 import ButtonComponent from "../../ButtonComponent/ButtonComponent";
+import ChakraSelect from "@/components/ChakraComponents/ChakraSelect";
+import { createListCollection } from "@chakra-ui/react";
 
 export default function SeasonForm() {
-  const { newSeasonInfos, setNewSeasonInfos, setActivePage } =
+  const { newSeasonInfos, setNewSeasonInfos, setActivePage, tvShows } =
     React.useContext(BasicsContext);
+  const [tvShowValue, setTvShowValue] = useState<string[]>([]);
+
+  const tvShowsArray: { label: string; value: string }[] = [];
+  tvShows.map((tvShow) =>
+    tvShowsArray.push({ label: tvShow.title, value: tvShow["@key"] }),
+  );
+
+  const tvShowsCollection = createListCollection({
+    items: tvShowsArray,
+  });
+
+  useEffect(() => {
+    setNewSeasonInfos({
+      ...newSeasonInfos,
+      tvShow: { ...newSeasonInfos.tvShow, "@key": tvShowValue[0] },
+    });
+  }, [tvShowValue]);
 
   return (
     <PageContainer>
@@ -20,16 +39,11 @@ export default function SeasonForm() {
           buttonFunc={() => setActivePage("seasons")}
         />
 
-        <InputComponent
-          label="Tv Show Key"
-          type="text"
-          value={newSeasonInfos.tvShow["@key"]}
-          handleChange={(e) =>
-            setNewSeasonInfos({
-              ...newSeasonInfos,
-              tvShow: { ...newSeasonInfos.tvShow, "@key": e.target.value },
-            })
-          }
+        <ChakraSelect
+          label="Select Tv Show"
+          listCollection={tvShowsCollection}
+          value={tvShowValue}
+          setValue={setTvShowValue}
         />
 
         <InputComponent

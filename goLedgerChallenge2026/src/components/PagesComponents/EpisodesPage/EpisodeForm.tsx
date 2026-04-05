@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BasicsContext } from "../../../contexts/BasicsContext";
 import { addEpisodeService } from "../../../api/services/episodesServices";
 import PageContainer from "../../PageContainer/PageContainer";
@@ -6,10 +6,57 @@ import FormContainer from "../../FormContainer/FormContainer";
 import PageTitleContainer from "../../PageTitleContainer/PageTitleContainer";
 import InputComponent from "../../InputComponent/InputComponent";
 import ButtonComponent from "../../ButtonComponent/ButtonComponent";
+import ChakraSelect from "@/components/ChakraComponents/ChakraSelect";
+import { createListCollection, type DateValue } from "@chakra-ui/react";
+import ChakraDateTimePicker from "@/components/ChakraComponents/ChakraDateTimePicker";
 
 export default function EpisodeForm() {
-  const { newEpisodeInfos, setNewEpisodeInfos, setActivePage } =
-    React.useContext(BasicsContext);
+  const {
+    newEpisodeInfos,
+    setNewEpisodeInfos,
+    setActivePage,
+    tvShows,
+    seasons,
+  } = React.useContext(BasicsContext);
+
+  const [tvShowValue, setTvShowValue] = useState<string[]>([]);
+  const [seasonValue, setSeasonValue] = useState<string[]>([]);
+  const [dateValue, setDateValue] = useState<DateValue[]>([]);
+
+  const tvShowsArray: { label: string; value: string }[] = [];
+
+  tvShows.map((tvShow) =>
+    tvShowsArray.push({ label: tvShow.title, value: tvShow["@key"] }),
+  );
+
+  const tvShowsCollection = createListCollection({
+    items: tvShowsArray,
+  });
+
+  const getSeasonsArray = () => {
+    if (!tvShowValue.length) return [];
+
+    return seasons
+      .filter((season) => season.tvShow["@key"] === tvShowValue[0])
+      .map((s) => ({
+        label: s.number.toString(),
+        value: s["@key"],
+      }));
+  };
+
+  useEffect(() => {
+    setNewEpisodeInfos({
+      ...newEpisodeInfos,
+      season: { ...newEpisodeInfos.season, "@key": seasonValue[0] },
+    });
+  }, [seasonValue]);
+
+  useEffect(() => {
+    setNewEpisodeInfos({
+      ...newEpisodeInfos,
+      releaseDate: `${dateValue.toString()}T00:00:00Z`,
+    });
+  }, [dateValue]);
 
   return (
     <PageContainer>
@@ -20,16 +67,21 @@ export default function EpisodeForm() {
           buttonFunc={() => setActivePage("episodes")}
         />
 
-        <InputComponent
-          label="Season key"
-          type="text"
-          value={newEpisodeInfos.season["@key"]}
-          handleChange={(e) =>
-            setNewEpisodeInfos({
-              ...newEpisodeInfos,
-              season: { ...newEpisodeInfos.season, "@key": e.target.value },
-            })
-          }
+        <ChakraSelect
+          label="Select Tv Show"
+          listCollection={tvShowsCollection}
+          value={tvShowValue}
+          setValue={setTvShowValue}
+        />
+
+        <ChakraSelect
+          label="Select a season"
+          listCollection={createListCollection({
+            items: getSeasonsArray(),
+          })}
+          value={seasonValue}
+          setValue={setSeasonValue}
+          disabled={getSeasonsArray().length == 0}
         />
 
         <InputComponent
@@ -56,7 +108,7 @@ export default function EpisodeForm() {
           }
         />
 
-        <InputComponent
+        {/* <InputComponent
           label="Release Date"
           type="text"
           value={newEpisodeInfos.releaseDate}
@@ -66,6 +118,12 @@ export default function EpisodeForm() {
               releaseDate: e.target.value,
             })
           }
+        /> */}
+
+        <ChakraDateTimePicker
+          label="Release Date"
+          value={dateValue}
+          setValue={setDateValue}
         />
 
         <InputComponent

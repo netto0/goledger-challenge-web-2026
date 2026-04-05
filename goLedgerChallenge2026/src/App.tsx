@@ -16,6 +16,8 @@ import EditSeasonScreen from "./components/PagesComponents/SeasonsPage/EditSeaso
 import EditEpisodeScreen from "./components/PagesComponents/EpisodesPage/EditEpisodeScreen";
 import EditWatchListScreen from "./components/PagesComponents/WatchListsPage/EditWatchListScreen";
 
+export const paletteColorBase = "gray"
+
 function App() {
   const { getTvShows, getSeasons, getEpisodes, getWatchLists, activePage } =
     React.useContext(BasicsContext);
