@@ -7,6 +7,7 @@ import FormContainer from "../../FormContainer/FormContainer";
 import PageTitleContainer from "../../PageTitleContainer/PageTitleContainer";
 import InputComponent from "../../InputComponent/InputComponent";
 import ButtonComponent from "../../ButtonComponent/ButtonComponent";
+import ChakraInputComponent from "@/components/ChakraComponents/ChakraInputComponent";
 
 export default function EditEpisodeScreen() {
   const {
@@ -26,11 +27,12 @@ export default function EditEpisodeScreen() {
           buttonFunc={() => setActivePage("episodes")}
         />
 
-        <InputComponent
-          label="Title"
+        <ChakraInputComponent
           type="text"
+          label="Title"
+          placeholder="Enter the episode title..."
           value={newEpisodeInfos.title}
-          handleChange={(e) =>
+          onChange={(e) =>
             setNewEpisodeInfos({
               ...newEpisodeInfos,
               title: e.target.value,
@@ -50,11 +52,12 @@ export default function EditEpisodeScreen() {
           }
         />
 
-        <InputComponent
-          label="Rating"
+        <ChakraInputComponent
           type="number"
+          label="Rating"
+          placeholder="Enter the episode rating..."
           value={newEpisodeInfos.rating}
-          handleChange={(e) =>
+          onChange={(e) =>
             setNewEpisodeInfos({
               ...newEpisodeInfos,
               rating: Number(e.target.value),

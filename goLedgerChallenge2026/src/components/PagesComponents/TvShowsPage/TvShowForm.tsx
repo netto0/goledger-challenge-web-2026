@@ -6,6 +6,7 @@ import PageContainer from "../../PageContainer/PageContainer";
 import InputComponent from "../../InputComponent/InputComponent";
 import ButtonComponent from "../../ButtonComponent/ButtonComponent";
 import FormContainer from "../../FormContainer/FormContainer";
+import ChakraInputComponent from "@/components/ChakraComponents/ChakraInputComponent";
 
 export default function TvShowForm() {
   const { newTvShowInfos, setNewTvShowInfos, setActivePage } =
@@ -21,11 +22,12 @@ export default function TvShowForm() {
             buttonFunc={() => setActivePage("tvShows")}
           />
 
-          <InputComponent
-            label="Title"
+          <ChakraInputComponent
             type="text"
+            label="Title"
+            placeholder="Enter the Tv Show name..."
             value={newTvShowInfos.title}
-            handleChange={(e) =>
+            onChange={(e) =>
               setNewTvShowInfos({ ...newTvShowInfos, title: e.target.value })
             }
           />
@@ -40,17 +42,21 @@ export default function TvShowForm() {
               })
             }
           />
-          <InputComponent
-            label="Recommended Age"
+
+          <ChakraInputComponent
             type="number"
+            label="Recommended Age"
+            placeholder="Enter the recommended age..."
             value={newTvShowInfos.recommendedAge}
-            handleChange={(e) =>
+            onChange={(e) =>
               setNewTvShowInfos({
                 ...newTvShowInfos,
                 recommendedAge: Number(e.target.value),
               })
             }
           />
+
+          
           <ButtonComponent
             label="ADD NEW SHOW"
             color="green"

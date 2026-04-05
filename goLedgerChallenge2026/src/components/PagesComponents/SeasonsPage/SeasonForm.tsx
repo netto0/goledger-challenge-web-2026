@@ -4,10 +4,10 @@ import { addSeasonService } from "../../../api/services/seasonsServices";
 import PageTitleContainer from "../../PageTitleContainer/PageTitleContainer";
 import PageContainer from "../../PageContainer/PageContainer";
 import FormContainer from "../../FormContainer/FormContainer";
-import InputComponent from "../../InputComponent/InputComponent";
 import ButtonComponent from "../../ButtonComponent/ButtonComponent";
 import ChakraSelect from "@/components/ChakraComponents/ChakraSelect";
 import { createListCollection } from "@chakra-ui/react";
+import ChakraInputComponent from "@/components/ChakraComponents/ChakraInputComponent";
 
 export default function SeasonForm() {
   const { newSeasonInfos, setNewSeasonInfos, setActivePage, tvShows } =
@@ -46,11 +46,12 @@ export default function SeasonForm() {
           setValue={setTvShowValue}
         />
 
-        <InputComponent
-          label="Number"
+        <ChakraInputComponent
           type="number"
+          label="Number"
+          placeholder="Enter the season number..."
           value={newSeasonInfos.number}
-          handleChange={(e) =>
+          onChange={(e) =>
             setNewSeasonInfos({
               ...newSeasonInfos,
               number: Number(e.target.value),
@@ -58,11 +59,12 @@ export default function SeasonForm() {
           }
         />
 
-        <InputComponent
-          label="Year"
+        <ChakraInputComponent
           type="number"
+          label="Year"
+          placeholder="Enter the season release year..."
           value={newSeasonInfos.year}
-          handleChange={(e) =>
+          onChange={(e) =>
             setNewSeasonInfos({
               ...newSeasonInfos,
               year: Number(e.target.value),

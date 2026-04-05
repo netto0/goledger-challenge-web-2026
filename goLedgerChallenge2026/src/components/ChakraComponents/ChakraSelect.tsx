@@ -25,9 +25,9 @@ export default function ChakraSelect({
       width="100%"
       value={value}
       onValueChange={(e) => setValue(e.value)}
-      size="md"
       colorPalette={paletteColorBase}
       disabled={disabled}
+      
     >
       <Select.HiddenSelect />
       <Select.Label>{label}</Select.Label>
@@ -37,6 +37,7 @@ export default function ChakraSelect({
           borderColor="colorPalette.muted"
           bg="colorPalette.subtle"
           color="colorPalette.fg"
+          height="2.5rem"
         >
           <Select.ValueText placeholder={label} />
         </Select.Trigger>

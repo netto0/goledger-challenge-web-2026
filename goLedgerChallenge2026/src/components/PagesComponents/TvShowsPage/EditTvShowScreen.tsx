@@ -8,6 +8,7 @@ import InputComponent from "../../InputComponent/InputComponent";
 import ButtonComponent from "../../ButtonComponent/ButtonComponent";
 import { BasicsContext } from "../../../contexts/BasicsContext";
 import SeasonCard from "../SeasonsPage/SeasonCard";
+import ChakraInputComponent from "@/components/ChakraComponents/ChakraInputComponent";
 
 export default function EditTvShowScreen() {
   const { newTvShowInfos, setNewTvShowInfos, setActivePage, seasons } =
@@ -25,6 +26,7 @@ export default function EditTvShowScreen() {
           buttonType="back"
           buttonFunc={() => setActivePage("tvShows")}
         />
+
         <InputComponent
           label="Description"
           type="textarea"
@@ -37,11 +39,12 @@ export default function EditTvShowScreen() {
           }
         />
 
-        <InputComponent
-          label="Recommended Age"
+        <ChakraInputComponent
           type="number"
+          label="Recommended Age"
+          placeholder="Enter the recommended age..."
           value={newTvShowInfos.recommendedAge}
-          handleChange={(e) =>
+          onChange={(e) =>
             setNewTvShowInfos({
               ...newTvShowInfos,
               recommendedAge: Number(e.target.value),

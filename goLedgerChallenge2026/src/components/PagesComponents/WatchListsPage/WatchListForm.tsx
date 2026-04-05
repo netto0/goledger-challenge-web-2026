@@ -7,6 +7,7 @@ import PageTitleContainer from "../../PageTitleContainer/PageTitleContainer";
 import InputComponent from "../../InputComponent/InputComponent";
 import ButtonComponent from "../../ButtonComponent/ButtonComponent";
 import SelectComponent from "../../SelectComponent/SelectComponent";
+import ChakraInputComponent from "@/components/ChakraComponents/ChakraInputComponent";
 
 export default function WatchListForm() {
   const { tvShows, newWatchListInfos, setNewWatchListInfos, setActivePage } =
@@ -29,11 +30,12 @@ export default function WatchListForm() {
           buttonFunc={() => setActivePage("watchlists")}
         />
 
-        <InputComponent
-          label="Title"
+        <ChakraInputComponent
           type="text"
+          label="Title"
+          placeholder="Enter the watchlist title..."
           value={newWatchListInfos.title}
-          handleChange={(e) =>
+          onChange={(e) =>
             setNewWatchListInfos({
               ...newWatchListInfos,
               title: e.target.value,

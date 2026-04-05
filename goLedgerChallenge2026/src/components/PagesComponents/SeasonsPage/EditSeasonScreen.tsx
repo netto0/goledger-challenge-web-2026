@@ -5,9 +5,9 @@ import { deleteItem } from "../../../api/axios";
 import PageContainer from "../../PageContainer/PageContainer";
 import FormContainer from "../../FormContainer/FormContainer";
 import PageTitleContainer from "../../PageTitleContainer/PageTitleContainer";
-import InputComponent from "../../InputComponent/InputComponent";
 import ButtonComponent from "../../ButtonComponent/ButtonComponent";
 import EpisodeCard from "../EpisodesPage/EpisodeCard";
+import ChakraInputComponent from "@/components/ChakraComponents/ChakraInputComponent";
 
 export default function EditSeasonScreen() {
   const {
@@ -30,11 +30,11 @@ export default function EditSeasonScreen() {
           buttonType="back"
           buttonFunc={() => setActivePage("seasons")}
         />
-        <InputComponent
-          label="Year"
+        <ChakraInputComponent
           type="number"
+          label="Year"
           value={newSeasonInfos.year}
-          handleChange={(e) =>
+          onChange={(e) =>
             setNewSeasonInfos({
               ...newSeasonInfos,
               year: Number(e.target.value),

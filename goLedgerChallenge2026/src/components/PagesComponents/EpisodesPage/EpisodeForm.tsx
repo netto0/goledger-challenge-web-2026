@@ -9,6 +9,7 @@ import ButtonComponent from "../../ButtonComponent/ButtonComponent";
 import ChakraSelect from "@/components/ChakraComponents/ChakraSelect";
 import { createListCollection, type DateValue } from "@chakra-ui/react";
 import ChakraDateTimePicker from "@/components/ChakraComponents/ChakraDateTimePicker";
+import ChakraInputComponent from "@/components/ChakraComponents/ChakraInputComponent";
 
 export default function EpisodeForm() {
   const {
@@ -60,6 +61,7 @@ export default function EpisodeForm() {
 
   return (
     <PageContainer>
+      {JSON.stringify(newEpisodeInfos)}
       <FormContainer>
         <PageTitleContainer
           title="Add New Episode"
@@ -84,11 +86,12 @@ export default function EpisodeForm() {
           disabled={getSeasonsArray().length == 0}
         />
 
-        <InputComponent
-          label="Number"
+        <ChakraInputComponent
           type="number"
+          label="Number"
+          placeholder="Enter the episode number..."
           value={newEpisodeInfos.episodeNumber}
-          handleChange={(e) =>
+          onChange={(e) =>
             setNewEpisodeInfos({
               ...newEpisodeInfos,
               episodeNumber: Number(e.target.value),
@@ -96,11 +99,12 @@ export default function EpisodeForm() {
           }
         />
 
-        <InputComponent
-          label="Title"
+        <ChakraInputComponent
           type="text"
+          label="Title"
+          placeholder="Enter the episode title..."
           value={newEpisodeInfos.title}
-          handleChange={(e) =>
+          onChange={(e) =>
             setNewEpisodeInfos({
               ...newEpisodeInfos,
               title: e.target.value,
@@ -108,35 +112,26 @@ export default function EpisodeForm() {
           }
         />
 
-        {/* <InputComponent
-          label="Release Date"
-          type="text"
-          value={newEpisodeInfos.releaseDate}
-          handleChange={(e) =>
-            setNewEpisodeInfos({
-              ...newEpisodeInfos,
-              releaseDate: e.target.value,
-            })
-          }
-        /> */}
+        <div style={{ display: "flex", gap: "1rem" }}>
+          <ChakraDateTimePicker
+            label="Release Date"
+            value={dateValue}
+            setValue={setDateValue}
+          />
 
-        <ChakraDateTimePicker
-          label="Release Date"
-          value={dateValue}
-          setValue={setDateValue}
-        />
-
-        <InputComponent
-          label="Rating"
-          type="number"
-          value={newEpisodeInfos.rating}
-          handleChange={(e) =>
-            setNewEpisodeInfos({
-              ...newEpisodeInfos,
-              rating: Number(e.target.value),
-            })
-          }
-        />
+          <ChakraInputComponent
+            type="number"
+            label="Rating"
+            placeholder="Enter the episode rating..."
+            value={newEpisodeInfos.rating}
+            onChange={(e) =>
+              setNewEpisodeInfos({
+                ...newEpisodeInfos,
+                rating: Number(e.target.value),
+              })
+            }
+          />
+        </div>
 
         <InputComponent
           label="Description"

@@ -34,8 +34,8 @@ export default function ChakraDateTimePicker({
 }: props) {
   return (
     <DatePicker.Root
-      maxWidth="20rem"
-      size={"xl"}
+      maxWidth="100%"
+      
       value={value}
       onValueChange={(e) => setValue(e.value)}
       colorPalette={paletteColorBase}
@@ -47,7 +47,7 @@ export default function ChakraDateTimePicker({
           getDateTimeString(value[0].year, value[0].month, value[0].day)}
       </DatePicker.Label>
       <DatePicker.Control>
-        <DatePicker.Trigger asChild unstyled>
+        <DatePicker.Trigger asChild unstyled height="2.5rem">
           <Button variant="surface" width="full" justifyContent="flex-start">
             <DatePicker.ValueText placeholder="Select date" />
           </Button>
