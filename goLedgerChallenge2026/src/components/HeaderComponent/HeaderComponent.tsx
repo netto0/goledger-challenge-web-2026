@@ -8,7 +8,7 @@ export default function HeaderComponent() {
   return (
     <header className={styles.container}>
       <span className={styles.logo} onClick={() => setActivePage("tvShows")}>
-        ShowsIndex
+        Shows<span style={{color: "#db5800"}}>index</span>
       </span>
       <ul>
         <li

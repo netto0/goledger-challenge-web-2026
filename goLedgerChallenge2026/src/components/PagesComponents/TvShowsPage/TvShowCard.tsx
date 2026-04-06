@@ -2,6 +2,7 @@ import React from "react";
 import type { TvShowType } from "../../../types/TvShowType";
 import styles from "./TvShowCard.module.css";
 import { BasicsContext } from "../../../contexts/BasicsContext";
+import CardContainer from "@/components/CardContainer/CardContainer";
 
 type props = {
   tvShow: TvShowType;
@@ -10,9 +11,8 @@ type props = {
 export default function TvShowCard({ tvShow }: props) {
   const { setActivePage, setNewTvShowInfos } = React.useContext(BasicsContext);
   return (
-    <div
-      key={tvShow["@key"]}
-      className={styles.showCardContainer}
+    <CardContainer
+      cardKey={tvShow["@key"]}
       onClick={() => {
         setNewTvShowInfos(tvShow);
         setActivePage("editTvShow");
@@ -25,8 +25,8 @@ export default function TvShowCard({ tvShow }: props) {
         </div>
       </div>
       <div className={styles.recommendedAge}>
-        <span>{tvShow.recommendedAge}</span>
+        <span title="Recommended age">{tvShow.recommendedAge}</span>
       </div>
-    </div>
+    </CardContainer>
   );
 }

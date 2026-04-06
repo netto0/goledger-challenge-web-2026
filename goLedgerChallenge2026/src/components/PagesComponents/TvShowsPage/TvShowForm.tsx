@@ -3,14 +3,29 @@ import { BasicsContext } from "../../../contexts/BasicsContext";
 import { addTvShowService } from "../../../api/services/tvShowsServices";
 import PageTitleContainer from "../../PageTitleContainer/PageTitleContainer";
 import PageContainer from "../../PageContainer/PageContainer";
-import InputComponent from "../../InputComponent/InputComponent";
-import ButtonComponent from "../../ButtonComponent/ButtonComponent";
+import ChakraButton from "../../ChakraComponents/ChakraButton";
 import FormContainer from "../../FormContainer/FormContainer";
-import ChakraInputComponent from "@/components/ChakraComponents/ChakraInputComponent";
+import ChakraInput from "@/components/ChakraComponents/ChakraInput";
+import ChakraTextArea from "@/components/ChakraComponents/ChakraTextArea";
 
 export default function TvShowForm() {
-  const { newTvShowInfos, setNewTvShowInfos, setActivePage } =
+  const { newTvShowInfos, setNewTvShowInfos, setActivePage, setIsLoading } =
     React.useContext(BasicsContext);
+
+  async function addTvShow(
+    title: string,
+    description: string,
+    recommendedAge: number,
+  ) {
+    try {
+      setIsLoading(true);
+      await addTvShowService(title, description, recommendedAge);
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setIsLoading(false);
+    }
+  }
 
   return (
     <div>
@@ -22,7 +37,7 @@ export default function TvShowForm() {
             buttonFunc={() => setActivePage("tvShows")}
           />
 
-          <ChakraInputComponent
+          <ChakraInput
             type="text"
             label="Title"
             placeholder="Enter the Tv Show name..."
@@ -31,11 +46,12 @@ export default function TvShowForm() {
               setNewTvShowInfos({ ...newTvShowInfos, title: e.target.value })
             }
           />
-          <InputComponent
+
+          <ChakraTextArea
             label="Description"
-            type="textarea"
+            placeholder="Enter the Tv Show description..."
             value={newTvShowInfos.description}
-            handleChange={(e) =>
+            onChange={(e) =>
               setNewTvShowInfos({
                 ...newTvShowInfos,
                 description: e.target.value,
@@ -43,7 +59,7 @@ export default function TvShowForm() {
             }
           />
 
-          <ChakraInputComponent
+          <ChakraInput
             type="number"
             label="Recommended Age"
             placeholder="Enter the recommended age..."
@@ -56,15 +72,14 @@ export default function TvShowForm() {
             }
           />
 
-          
-          <ButtonComponent
+          <ChakraButton
             label="ADD NEW SHOW"
             color="green"
             onClickFunc={(
               e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
             ) => {
               e.preventDefault();
-              addTvShowService(
+              addTvShow(
                 newTvShowInfos.title,
                 newTvShowInfos.description,
                 newTvShowInfos.recommendedAge,

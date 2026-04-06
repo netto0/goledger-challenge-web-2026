@@ -18,14 +18,13 @@ export default function PageTitleContainer({
   return (
     <div className={styles.container}>
       <div className={styles.titleContainer}>
-        <h1>{title}</h1>
+        <div className={styles.titleSubContainer}>
+          {buttonType == "back" && <FiArrowLeftCircle onClick={buttonFunc} />}
+          <h1>{title}</h1>
+        </div>
         {subTitle ? subTitle : <br />}
       </div>
-      {buttonType == "plus" ? (
-        <FiPlusCircle onClick={buttonFunc} />
-      ) : (
-        <FiArrowLeftCircle onClick={buttonFunc} />
-      )}
+      {buttonType == "plus" && <FiPlusCircle onClick={buttonFunc} />}
     </div>
   );
 }

@@ -10,7 +10,8 @@
 }
 
 .selectContainer select {
-  background-color: #9f9f9f;
+  background-color: #18181b;
+  color: #efefef;
   border-radius: 5px;
   text-indent: 1rem;
   height: 8rem;

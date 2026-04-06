@@ -1,0 +1,22 @@
+.cardContainer {
+  background-color: #181818;
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+}
+
+.cardContainer:hover {
+  transition: 0.1s;
+  scale: 1.02;
+  cursor: pointer;
+}
+
+.cardContainer h1 {
+  font-family: "Afacad";
+  font-size: xx-large;
+  font-weight: 500;
+  margin-bottom: -.5rem;
+}

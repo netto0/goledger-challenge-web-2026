@@ -3,6 +3,7 @@ import { BasicsContext } from "../../../contexts/BasicsContext";
 import React from "react";
 import type { EpisodeType } from "../../../types/EpisodeType";
 import { GoStarFill } from "react-icons/go";
+import CardContainer from "@/components/CardContainer/CardContainer";
 
 type props = {
   episode: EpisodeType;
@@ -17,9 +18,8 @@ export default function EpisodeCard({ episode }: props) {
   } = React.useContext(BasicsContext);
 
   return (
-    <div
-      key={episode["@key"]}
-      className={styles.cardContainer}
+    <CardContainer
+      cardKey={episode["@key"]}
       onClick={() => {
         setNewEpisodeInfos(episode);
         setActivePage("editEpisode");
@@ -39,6 +39,6 @@ export default function EpisodeCard({ episode }: props) {
         <span>{(Number(episode.rating) || 0).toFixed(1)}</span>
         <GoStarFill />
       </div>
-    </div>
+    </CardContainer>
   );
 }

@@ -1,5 +1,6 @@
 import axios, { AxiosError } from "axios";
 import type { AssetType } from "../types/AssetType";
+import { failToast, successToast } from "@/components/utils/toasts";
 
 const baseUrl = import.meta.env.VITE_BASE_URL;
 
@@ -36,10 +37,18 @@ const deleteItem = async (itemKey: string) => {
       },
       auth: authPayload,
     });
-    location.reload();
+    // location.reload();
+    successToast("Item sucessfully deleted!");
     return response;
   } catch (error) {
     if (error instanceof AxiosError && error.response) {
+      const errorCode = error.response.data.status;
+      if (errorCode == 409) {
+        failToast("This item is already registered");
+      }
+      if (errorCode == 404) {
+        failToast("Item not found :/");
+      }
       return error.response.data;
     }
   }

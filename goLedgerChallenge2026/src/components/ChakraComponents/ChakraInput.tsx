@@ -5,15 +5,11 @@ type props = {
   type: "text" | "number";
   label: string;
   value: string | number;
-  onChange: (
-    e:
-    | React.ChangeEvent<HTMLInputElement, HTMLInputElement>
-    | React.ChangeEvent<HTMLTextAreaElement, HTMLTextAreaElement>,
-  ) => void;
+  onChange: (e: React.ChangeEvent<HTMLInputElement, HTMLInputElement>) => void;
   placeholder?: string;
 };
 
-export default function ChakraInputComponent({
+export default function ChakraInput({
   type,
   label,
   placeholder,

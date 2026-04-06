@@ -6,6 +6,7 @@
 
 .container svg {
   font-size: 3rem;
+  color: #db5800;
 }
 
 .container svg:hover {
@@ -23,7 +24,6 @@
 }
 
 .titleContainer h1 {
-  color: black;
   margin-bottom: -1rem;
   font-size: 3rem;
   font-weight: 800;
@@ -33,4 +33,14 @@
   color: #161616;
   font-size: medium;
   font-weight: 200;
+}
+
+.titleSubContainer {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.titleSubContainer svg {
+  margin-top: 1rem;
 }

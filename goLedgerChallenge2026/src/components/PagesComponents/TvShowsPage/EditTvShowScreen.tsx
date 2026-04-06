@@ -4,19 +4,50 @@ import { deleteItem } from "../../../api/axios";
 import PageContainer from "../../PageContainer/PageContainer";
 import FormContainer from "../../FormContainer/FormContainer";
 import PageTitleContainer from "../../PageTitleContainer/PageTitleContainer";
-import InputComponent from "../../InputComponent/InputComponent";
-import ButtonComponent from "../../ButtonComponent/ButtonComponent";
+import ChakraButton from "../../ChakraComponents/ChakraButton";
 import { BasicsContext } from "../../../contexts/BasicsContext";
 import SeasonCard from "../SeasonsPage/SeasonCard";
-import ChakraInputComponent from "@/components/ChakraComponents/ChakraInputComponent";
+import ChakraInput from "@/components/ChakraComponents/ChakraInput";
+import ChakraTextArea from "@/components/ChakraComponents/ChakraTextArea";
 
 export default function EditTvShowScreen() {
-  const { newTvShowInfos, setNewTvShowInfos, setActivePage, seasons } =
-    React.useContext(BasicsContext);
+  const {
+    newTvShowInfos,
+    setNewTvShowInfos,
+    setActivePage,
+    seasons,
+    setIsLoading,
+  } = React.useContext(BasicsContext);
 
   const tvShowSeasons = seasons.filter(
     (s) => s.tvShow["@key"] == newTvShowInfos["@key"],
   );
+
+  async function updateTvShow(
+    title: string,
+    description: string,
+    recommendedAge: number,
+  ) {
+    try {
+      setIsLoading(true);
+      await updateTvShowService(title, description, recommendedAge);
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  async function deleteTvShow(key: string) {
+    try {
+      setIsLoading(true);
+      await deleteItem(key);
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setIsLoading(false);
+    }
+  }
 
   return (
     <PageContainer>
@@ -27,11 +58,11 @@ export default function EditTvShowScreen() {
           buttonFunc={() => setActivePage("tvShows")}
         />
 
-        <InputComponent
+        <ChakraTextArea
           label="Description"
-          type="textarea"
+          placeholder="Enter the Tv Show name..."
           value={newTvShowInfos.description}
-          handleChange={(e) =>
+          onChange={(e) =>
             setNewTvShowInfos({
               ...newTvShowInfos,
               description: e.target.value,
@@ -39,7 +70,7 @@ export default function EditTvShowScreen() {
           }
         />
 
-        <ChakraInputComponent
+        <ChakraInput
           type="number"
           label="Recommended Age"
           placeholder="Enter the recommended age..."
@@ -66,12 +97,12 @@ export default function EditTvShowScreen() {
           <SeasonCard season={season} />
         ))}
 
-        <ButtonComponent
+        <ChakraButton
           color="green"
           label="UPDATE SHOW"
           onClickFunc={(e) => {
             e.preventDefault();
-            updateTvShowService(
+            updateTvShow(
               newTvShowInfos.title,
               newTvShowInfos.description,
               newTvShowInfos.recommendedAge,
@@ -79,12 +110,12 @@ export default function EditTvShowScreen() {
           }}
         />
 
-        <ButtonComponent
+        <ChakraButton
           color="red"
           label="DELETE SHOW"
           onClickFunc={(e) => {
             e.preventDefault();
-            deleteItem(newTvShowInfos["@key"]);
+            deleteTvShow(newTvShowInfos["@key"]);
           }}
         />
       </FormContainer>

@@ -2,6 +2,7 @@ import React from "react";
 import type { WatchListType } from "../../../types/WatchListType";
 import styles from "./WatchListCard.module.css";
 import { BasicsContext } from "../../../contexts/BasicsContext";
+import CardContainer from "@/components/CardContainer/CardContainer";
 
 type props = {
   watchList: WatchListType;
@@ -11,9 +12,8 @@ export default function WatchListCard({ watchList }: props) {
   const { setActivePage, setNewWatchListInfos } =
     React.useContext(BasicsContext);
   return (
-    <div
-      key={watchList["@key"]}
-      className={styles.cardContainer}
+    <CardContainer
+      cardKey={watchList["@key"]}
       onClick={() => {
         setNewWatchListInfos(watchList);
         setActivePage("editWatchlist");
@@ -25,6 +25,6 @@ export default function WatchListCard({ watchList }: props) {
           <span className={styles.description}>{watchList.description}</span>
         </div>
       </div>
-    </div>
+    </CardContainer>
   );
 }

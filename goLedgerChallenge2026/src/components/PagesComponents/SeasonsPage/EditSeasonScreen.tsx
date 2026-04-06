@@ -5,9 +5,9 @@ import { deleteItem } from "../../../api/axios";
 import PageContainer from "../../PageContainer/PageContainer";
 import FormContainer from "../../FormContainer/FormContainer";
 import PageTitleContainer from "../../PageTitleContainer/PageTitleContainer";
-import ButtonComponent from "../../ButtonComponent/ButtonComponent";
+import ChakraButton from "../../ChakraComponents/ChakraButton";
 import EpisodeCard from "../EpisodesPage/EpisodeCard";
-import ChakraInputComponent from "@/components/ChakraComponents/ChakraInputComponent";
+import ChakraInput from "@/components/ChakraComponents/ChakraInput";
 
 export default function EditSeasonScreen() {
   const {
@@ -16,11 +16,34 @@ export default function EditSeasonScreen() {
     getTvShowBySeasonId,
     setActivePage,
     episodes,
+    setIsLoading,
   } = React.useContext(BasicsContext);
 
   const seasonEpisodes = episodes.filter(
     (ep) => ep.season["@key"] == newSeasonInfos["@key"],
   );
+
+  async function updateSeason(number: number, tvShowKey: string, year: number) {
+    try {
+      setIsLoading(true);
+      await updateSeasonService(number, tvShowKey, year);
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  async function deleteSeason(key: string) {
+    try {
+      setIsLoading(true);
+      await deleteItem(key);
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setIsLoading(false);
+    }
+  }
 
   return (
     <PageContainer>
@@ -30,7 +53,7 @@ export default function EditSeasonScreen() {
           buttonType="back"
           buttonFunc={() => setActivePage("seasons")}
         />
-        <ChakraInputComponent
+        <ChakraInput
           type="number"
           label="Year"
           value={newSeasonInfos.year}
@@ -55,24 +78,24 @@ export default function EditSeasonScreen() {
         {seasonEpisodes.map((episode) => (
           <EpisodeCard episode={episode} />
         ))}
-        <ButtonComponent
+        <ChakraButton
           color="green"
           label="Enviar"
           onClickFunc={(e) => {
             e.preventDefault();
-            updateSeasonService(
+            updateSeason(
               newSeasonInfos.number,
               newSeasonInfos.tvShow["@key"],
               newSeasonInfos.year,
             );
           }}
         />
-        <ButtonComponent
+        <ChakraButton
           color="red"
           label="DELETAR SEASON"
           onClickFunc={(e) => {
             e.preventDefault();
-            deleteItem(newSeasonInfos["@key"]);
+            deleteSeason(newSeasonInfos["@key"]);
           }}
         />
       </FormContainer>

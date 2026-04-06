@@ -4,12 +4,12 @@ import { addEpisodeService } from "../../../api/services/episodesServices";
 import PageContainer from "../../PageContainer/PageContainer";
 import FormContainer from "../../FormContainer/FormContainer";
 import PageTitleContainer from "../../PageTitleContainer/PageTitleContainer";
-import InputComponent from "../../InputComponent/InputComponent";
-import ButtonComponent from "../../ButtonComponent/ButtonComponent";
+import ChakraButton from "../../ChakraComponents/ChakraButton";
 import ChakraSelect from "@/components/ChakraComponents/ChakraSelect";
 import { createListCollection, type DateValue } from "@chakra-ui/react";
 import ChakraDateTimePicker from "@/components/ChakraComponents/ChakraDateTimePicker";
-import ChakraInputComponent from "@/components/ChakraComponents/ChakraInputComponent";
+import ChakraInput from "@/components/ChakraComponents/ChakraInput";
+import ChakraTextArea from "@/components/ChakraComponents/ChakraTextArea";
 
 export default function EpisodeForm() {
   const {
@@ -18,6 +18,7 @@ export default function EpisodeForm() {
     setActivePage,
     tvShows,
     seasons,
+    setIsLoading,
   } = React.useContext(BasicsContext);
 
   const [tvShowValue, setTvShowValue] = useState<string[]>([]);
@@ -45,6 +46,31 @@ export default function EpisodeForm() {
       }));
   };
 
+  async function addEpisode(
+    description: string,
+    episodeNumber: number,
+    rating: number,
+    releaseDate: string,
+    seasonKey: string,
+    title: string,
+  ) {
+    try {
+      setIsLoading(true);
+      await addEpisodeService(
+        description,
+        episodeNumber,
+        rating,
+        releaseDate,
+        seasonKey,
+        title,
+      );
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
   useEffect(() => {
     setNewEpisodeInfos({
       ...newEpisodeInfos,
@@ -61,7 +87,6 @@ export default function EpisodeForm() {
 
   return (
     <PageContainer>
-      {JSON.stringify(newEpisodeInfos)}
       <FormContainer>
         <PageTitleContainer
           title="Add New Episode"
@@ -86,7 +111,7 @@ export default function EpisodeForm() {
           disabled={getSeasonsArray().length == 0}
         />
 
-        <ChakraInputComponent
+        <ChakraInput
           type="number"
           label="Number"
           placeholder="Enter the episode number..."
@@ -99,7 +124,7 @@ export default function EpisodeForm() {
           }
         />
 
-        <ChakraInputComponent
+        <ChakraInput
           type="text"
           label="Title"
           placeholder="Enter the episode title..."
@@ -119,7 +144,7 @@ export default function EpisodeForm() {
             setValue={setDateValue}
           />
 
-          <ChakraInputComponent
+          <ChakraInput
             type="number"
             label="Rating"
             placeholder="Enter the episode rating..."
@@ -133,11 +158,11 @@ export default function EpisodeForm() {
           />
         </div>
 
-        <InputComponent
+        <ChakraTextArea
           label="Description"
-          type="textarea"
+          placeholder="Enter the episode description..."
           value={newEpisodeInfos.description}
-          handleChange={(e) =>
+          onChange={(e) =>
             setNewEpisodeInfos({
               ...newEpisodeInfos,
               description: e.target.value,
@@ -145,12 +170,12 @@ export default function EpisodeForm() {
           }
         />
 
-        <ButtonComponent
+        <ChakraButton
           label="Enviar"
           color="green"
           onClickFunc={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
             e.preventDefault();
-            addEpisodeService(
+            addEpisode(
               newEpisodeInfos.description,
               newEpisodeInfos.episodeNumber,
               newEpisodeInfos.rating,

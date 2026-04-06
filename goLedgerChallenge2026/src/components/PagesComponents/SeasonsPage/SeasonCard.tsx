@@ -2,6 +2,7 @@ import styles from "./SeasonCard.module.css";
 import type { SeasonType } from "../../../types/SeasonType";
 import { BasicsContext } from "../../../contexts/BasicsContext";
 import React from "react";
+import CardContainer from "@/components/CardContainer/CardContainer";
 
 type props = {
   season: SeasonType;
@@ -12,9 +13,8 @@ export default function SeasonCard({ season }: props) {
     React.useContext(BasicsContext);
 
   return (
-    <div
-      key={season["@key"]}
-      className={styles.cardContainer}
+    <CardContainer
+      cardKey={season["@key"]}
       onClick={() => {
         setNewSeasonInfos(season);
         setActivePage("editSeason");
@@ -30,6 +30,6 @@ export default function SeasonCard({ season }: props) {
       <div className={styles.seasonNumber}>
         <span>#{season.number}</span>
       </div>
-    </div>
+    </CardContainer>
   );
 }

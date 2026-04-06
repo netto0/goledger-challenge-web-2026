@@ -41,10 +41,18 @@ export const BasicsProvider = (props: { children: React.ReactNode }) => {
     watchListInitialValues,
   );
   const [activePage, setActivePage] = useState<ActivePageType>("tvShows");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const getTvShows = async () => {
-    const tvShows = await getTvShowsService();
-    setTvShows(tvShows);
+    try {
+      setIsLoading(true)
+      const tvShows = await getTvShowsService();
+      setTvShows(tvShows);
+    } catch (e){
+      console.log(e)
+    } finally {
+      setIsLoading(false)
+    }
   };
 
   const getSeasons = async () => {
@@ -106,6 +114,8 @@ export const BasicsProvider = (props: { children: React.ReactNode }) => {
         setNewWatchListInfos,
         activePage,
         setActivePage,
+        isLoading,
+        setIsLoading,
         getTvShows,
         getSeasons,
         getEpisodes,

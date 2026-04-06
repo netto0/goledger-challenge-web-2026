@@ -16,11 +16,20 @@ import EditSeasonScreen from "./components/PagesComponents/SeasonsPage/EditSeaso
 import EditEpisodeScreen from "./components/PagesComponents/EpisodesPage/EditEpisodeScreen";
 import EditWatchListScreen from "./components/PagesComponents/WatchListsPage/EditWatchListScreen";
 
-export const paletteColorBase = "gray"
+import { ToastContainer } from "react-toastify";
+// import LoadingComponent from "./components/LoadingComponent/LoadingComponent";
+
+export const paletteColorBase = "gray";
 
 function App() {
-  const { getTvShows, getSeasons, getEpisodes, getWatchLists, activePage } =
-    React.useContext(BasicsContext);
+  const {
+    getTvShows,
+    getSeasons,
+    getEpisodes,
+    getWatchLists,
+    activePage,
+    // isLoading,
+  } = React.useContext(BasicsContext);
 
   useEffect(() => {
     getTvShows();
@@ -30,22 +39,45 @@ function App() {
   }, []);
 
   return (
-    <div className={styles.mainContainer}>
-      <HeaderComponent />
-      {activePage == "tvShows" && <TvShowsPage />}
-      {activePage == "addTvShow" && <TvShowForm />}
-      {activePage == "editTvShow" && <EditTvShowScreen />}
-      {activePage == "seasons" && <SeasonsPage />}
-      {activePage == "addSeason" && <SeasonForm />}
-      {activePage == "editSeason" && <EditSeasonScreen />}
-      {activePage == "episodes" && <EpisodesPage />}
-      {activePage == "addEpisode" && <EpisodeForm />}
-      {activePage == "editEpisode" && <EditEpisodeScreen />}
-      {activePage == "watchlists" && <WatchListsPage />}
-      {activePage == "addWatchlist" && <WatchListForm />}
-      {activePage == "editWatchlist" && <EditWatchListScreen />}
-      <FooterComponent />
-    </div>
+    <>
+      <ToastContainer />
+      <div className={styles.mainContainer}>
+        <HeaderComponent />
+        {/* {isLoading ? (
+          <LoadingComponent />
+        ) : (
+          <>
+            {activePage == "tvShows" && <TvShowsPage />}
+            {activePage == "addTvShow" && <TvShowForm />}
+            {activePage == "editTvShow" && <EditTvShowScreen />}
+            {activePage == "seasons" && <SeasonsPage />}
+            {activePage == "addSeason" && <SeasonForm />}
+            {activePage == "editSeason" && <EditSeasonScreen />}
+            {activePage == "episodes" && <EpisodesPage />}
+            {activePage == "addEpisode" && <EpisodeForm />}
+            {activePage == "editEpisode" && <EditEpisodeScreen />}
+            {activePage == "watchlists" && <WatchListsPage />}
+            {activePage == "addWatchlist" && <WatchListForm />}
+            {activePage == "editWatchlist" && <EditWatchListScreen />}
+          </>
+        )} */}
+        <>
+          {activePage == "tvShows" && <TvShowsPage />}
+          {activePage == "addTvShow" && <TvShowForm />}
+          {activePage == "editTvShow" && <EditTvShowScreen />}
+          {activePage == "seasons" && <SeasonsPage />}
+          {activePage == "addSeason" && <SeasonForm />}
+          {activePage == "editSeason" && <EditSeasonScreen />}
+          {activePage == "episodes" && <EpisodesPage />}
+          {activePage == "addEpisode" && <EpisodeForm />}
+          {activePage == "editEpisode" && <EditEpisodeScreen />}
+          {activePage == "watchlists" && <WatchListsPage />}
+          {activePage == "addWatchlist" && <WatchListForm />}
+          {activePage == "editWatchlist" && <EditWatchListScreen />}
+        </>
+        <FooterComponent />
+      </div>
+    </>
   );
 }
 

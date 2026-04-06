@@ -1,6 +1,7 @@
 import axios, { AxiosError } from "axios";
 import { authPayload, baseUrl, getItensByType } from "../axios";
 import type { TvShowKeyType } from "../../types/TvShowType";
+import { failToast, successToast } from "@/components/utils/toasts";
 
 const getWatchListsService = async () => {
   try {
@@ -56,10 +57,12 @@ const addWatchListService = async (
         auth: authPayload,
       },
     );
-    location.reload();
+    successToast("Item added sucessfully!");
+    // location.reload();
     return response;
   } catch (error) {
     if (error instanceof AxiosError && error.response) {
+      failToast("Fail on item add!");
       return error.response.data;
     }
   }
@@ -71,7 +74,6 @@ const updateWatchListService = async (
   description: string,
 ) => {
   try {
-    console.log(tvShows);
     const response = await axios.post(
       `${baseUrl}/invoke/updateAsset`,
       {
@@ -86,10 +88,12 @@ const updateWatchListService = async (
         auth: authPayload,
       },
     );
-    location.reload();
+    successToast("Item updated sucessfully!");
+    // location.reload();
     return response;
   } catch (error) {
     if (error instanceof AxiosError && error.response) {
+      failToast("Fail on item update!");
       return error.response.data;
     }
   }

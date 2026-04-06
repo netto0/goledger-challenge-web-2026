@@ -1,21 +1,5 @@
-.cardContainer {
-  background-color: #9f9f9f;
-  padding: 1rem 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-radius: 5px;
-  margin-bottom: 1rem;
-}
-
-.cardContainer:hover {
-  transition: 0.1s;
-  scale: 1.02;
-  cursor: pointer;
-}
 .seasonInfos {
   display: flex;
-  padding-left: 0.5rem;
   gap: 1rem;
 }
 .seasonInfos span {
@@ -25,15 +9,8 @@
   font-weight: 300;
 }
 
-.cardContainer h1 {
-  font-family: "Pacifico";
-  font-size: x-large;
-  font-weight: 100;
-}
-
 .seasonNumber {
   font-family: "Afacad";
   font-size: 2rem;
   font-weight: bold;
-  margin-left: .5rem;
 }

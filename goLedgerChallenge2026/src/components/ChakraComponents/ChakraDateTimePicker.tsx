@@ -1,30 +1,12 @@
 import { paletteColorBase } from "@/App";
 import { Button, DatePicker, Portal, type DateValue } from "@chakra-ui/react";
 import { LuCalendar } from "react-icons/lu";
+import { dateFormat } from "../utils/dateTimeFunctions";
 
 type props = {
   label: string;
   value: DateValue[];
   setValue: React.Dispatch<React.SetStateAction<DateValue[]>>;
-};
-
-function getPadStart(number: number): string {
-  return number.toString().padStart(2, "0");
-}
-
-function getDateString(year: number, month: number, day: number): string {
-  return `${year}-${getPadStart(month)}-${getPadStart(day)}`;
-}
-
-function getDateTimeString(year: number, month: number, day: number): string {
-  return `${getDateString(year, month, day)}T00:00:00Z`;
-}
-
-const format = (date: DateValue) => {
-  const day = date.day.toString().padStart(2, "0");
-  const month = date.month.toString().padStart(2, "0");
-  const year = date.year.toString();
-  return `${day}/${month}/${year}`;
 };
 
 export default function ChakraDateTimePicker({
@@ -35,17 +17,12 @@ export default function ChakraDateTimePicker({
   return (
     <DatePicker.Root
       maxWidth="100%"
-      
       value={value}
       onValueChange={(e) => setValue(e.value)}
       colorPalette={paletteColorBase}
-      format={format}
+      format={dateFormat}
     >
-      <DatePicker.Label>
-        {label}:{" "}
-        {value[0] &&
-          getDateTimeString(value[0].year, value[0].month, value[0].day)}
-      </DatePicker.Label>
+      <DatePicker.Label>{label}</DatePicker.Label>
       <DatePicker.Control>
         <DatePicker.Trigger asChild unstyled height="2.5rem">
           <Button variant="surface" width="full" justifyContent="flex-start">

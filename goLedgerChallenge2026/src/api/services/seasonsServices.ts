@@ -1,5 +1,6 @@
 import axios, { AxiosError } from "axios";
 import { authPayload, baseUrl, getItensByType } from "../axios";
+import { failToast, successToast } from "@/components/utils/toasts";
 
 const getSeasonsService = async () => {
   try {
@@ -54,10 +55,18 @@ const addSeasonService = async (
         auth: authPayload,
       },
     );
-    location.reload();
+    successToast("Item added sucessfully!");
+    // location.reload();
     return response;
   } catch (error) {
     if (error instanceof AxiosError && error.response) {
+      const errorCode = error.response.data.status;
+      if (errorCode == 409) {
+        failToast("This item is already registered");
+      }
+      if (errorCode == 404) {
+        failToast("Item not found :/");
+      }
       return error.response.data;
     }
   }
@@ -83,13 +92,26 @@ const updateSeasonService = async (
         auth: authPayload,
       },
     );
-    location.reload();
+    successToast("Item updated sucessfully!");
+    // location.reload();
     return response;
   } catch (error) {
     if (error instanceof AxiosError && error.response) {
+      const errorCode = error.response.data.status;
+      if (errorCode == 409) {
+        failToast("This item is already registered");
+      }
+      if (errorCode == 404) {
+        failToast("Item not found :/");
+      }
       return error.response.data;
     }
   }
 };
 
-export { getSeasonsService, getSeasonByIdService, addSeasonService, updateSeasonService };
+export {
+  getSeasonsService,
+  getSeasonByIdService,
+  addSeasonService,
+  updateSeasonService,
+};

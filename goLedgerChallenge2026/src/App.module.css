@@ -1,7 +1,7 @@
 .mainContainer {
-  background-color: white;
+  background-color: rgb(29, 29, 29);
   display: grid;
   grid-template-rows: auto 1fr auto;
-  color: black;
+  color: #f3dfcf;
   min-height: 100vh;
 }

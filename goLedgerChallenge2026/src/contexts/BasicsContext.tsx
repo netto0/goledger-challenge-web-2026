@@ -27,6 +27,8 @@ type BasicsType = {
   setNewWatchListInfos: React.Dispatch<React.SetStateAction<WatchListType>>;
   activePage: ActivePageType;
   setActivePage: React.Dispatch<React.SetStateAction<ActivePageType>>;
+  isLoading: boolean;
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
   getTvShows: () => Promise<void>;
   getSeasons: () => Promise<void>;
   getEpisodes: () => Promise<void>;
@@ -56,6 +58,8 @@ export const BasicsContext = createContext<BasicsType>({
   setNewWatchListInfos: () => {},
   activePage: "tvShows",
   setActivePage: () => {},
+  isLoading: false,
+  setIsLoading: () => {},
   getTvShows: async () => {},
   getSeasons: async () => {},
   getEpisodes: async () => {},

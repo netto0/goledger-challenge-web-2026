@@ -4,14 +4,19 @@ import { addSeasonService } from "../../../api/services/seasonsServices";
 import PageTitleContainer from "../../PageTitleContainer/PageTitleContainer";
 import PageContainer from "../../PageContainer/PageContainer";
 import FormContainer from "../../FormContainer/FormContainer";
-import ButtonComponent from "../../ButtonComponent/ButtonComponent";
+import ChakraButton from "../../ChakraComponents/ChakraButton";
 import ChakraSelect from "@/components/ChakraComponents/ChakraSelect";
 import { createListCollection } from "@chakra-ui/react";
-import ChakraInputComponent from "@/components/ChakraComponents/ChakraInputComponent";
+import ChakraInput from "@/components/ChakraComponents/ChakraInput";
 
 export default function SeasonForm() {
-  const { newSeasonInfos, setNewSeasonInfos, setActivePage, tvShows } =
-    React.useContext(BasicsContext);
+  const {
+    newSeasonInfos,
+    setNewSeasonInfos,
+    setActivePage,
+    tvShows,
+    setIsLoading,
+  } = React.useContext(BasicsContext);
   const [tvShowValue, setTvShowValue] = useState<string[]>([]);
 
   const tvShowsArray: { label: string; value: string }[] = [];
@@ -22,6 +27,17 @@ export default function SeasonForm() {
   const tvShowsCollection = createListCollection({
     items: tvShowsArray,
   });
+
+  async function addSeason(number: number, tvShowKey: string, year: number) {
+    try {
+      setIsLoading(true);
+      await addSeasonService(number, tvShowKey, year);
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setIsLoading(false);
+    }
+  }
 
   useEffect(() => {
     setNewSeasonInfos({
@@ -46,7 +62,7 @@ export default function SeasonForm() {
           setValue={setTvShowValue}
         />
 
-        <ChakraInputComponent
+        <ChakraInput
           type="number"
           label="Number"
           placeholder="Enter the season number..."
@@ -59,7 +75,7 @@ export default function SeasonForm() {
           }
         />
 
-        <ChakraInputComponent
+        <ChakraInput
           type="number"
           label="Year"
           placeholder="Enter the season release year..."
@@ -72,12 +88,12 @@ export default function SeasonForm() {
           }
         />
 
-        <ButtonComponent
+        <ChakraButton
           label="Enviar"
           color="green"
           onClickFunc={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
             e.preventDefault();
-            addSeasonService(
+            addSeason(
               newSeasonInfos.number,
               newSeasonInfos.tvShow["@key"],
               newSeasonInfos.year,

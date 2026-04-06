@@ -1,25 +1,66 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BasicsContext } from "../../../contexts/BasicsContext";
 import { addWatchListService } from "../../../api/services/watchListsServices";
 import PageContainer from "../../PageContainer/PageContainer";
 import FormContainer from "../../FormContainer/FormContainer";
 import PageTitleContainer from "../../PageTitleContainer/PageTitleContainer";
-import InputComponent from "../../InputComponent/InputComponent";
-import ButtonComponent from "../../ButtonComponent/ButtonComponent";
-import SelectComponent from "../../SelectComponent/SelectComponent";
-import ChakraInputComponent from "@/components/ChakraComponents/ChakraInputComponent";
+import ChakraButton from "../../ChakraComponents/ChakraButton";
+import ChakraInput from "@/components/ChakraComponents/ChakraInput";
+import ChakraTextArea from "@/components/ChakraComponents/ChakraTextArea";
+import ChakraList from "@/components/ChakraComponents/ChakraList";
+import { createListCollection } from "@chakra-ui/react";
+import type { TvShowKeyType } from "@/types/TvShowType";
 
 export default function WatchListForm() {
-  const { tvShows, newWatchListInfos, setNewWatchListInfos, setActivePage } =
-    React.useContext(BasicsContext);
+  const {
+    tvShows,
+    newWatchListInfos,
+    setNewWatchListInfos,
+    setActivePage,
+    setIsLoading,
+  } = React.useContext(BasicsContext);
 
-  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const values = Array.from(e.target.selectedOptions, (option) => ({
-      "@assetType": "tvShows",
-      "@key": option.value,
-    }));
-    setNewWatchListInfos({ ...newWatchListInfos, tvShows: values });
-  };
+  const tvShowsArray: { label: string; value: string }[] = [];
+  const [tvShowsListValue, setTvShowsListValue] = useState<string[]>([]);
+
+  useEffect(() => {
+    setNewWatchListInfos({
+      ...newWatchListInfos,
+      tvShows: tvShowsListValue.map((tvShow) => ({
+        "@assetType": "tvShows",
+        "@key": tvShow,
+      })),
+    });
+  }, [tvShowsListValue]);
+
+  tvShows.map((tvShow) =>
+    tvShowsArray.push({ label: tvShow.title, value: tvShow["@key"] }),
+  );
+
+  const tvShowsCollection = createListCollection({
+    items: tvShowsArray,
+  });
+
+  // addWatchListService(
+  //             newWatchListInfos.title,
+  //             newWatchListInfos.description,
+  //             newWatchListInfos.tvShows,
+  //           );
+
+  async function addWatchList(
+    title: string,
+    description: string,
+    tvShows: TvShowKeyType[],
+  ) {
+    try {
+      setIsLoading(true);
+      await addWatchListService(title, description, tvShows);
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setIsLoading(false);
+    }
+  }
 
   return (
     <PageContainer>
@@ -30,7 +71,7 @@ export default function WatchListForm() {
           buttonFunc={() => setActivePage("watchlists")}
         />
 
-        <ChakraInputComponent
+        <ChakraInput
           type="text"
           label="Title"
           placeholder="Enter the watchlist title..."
@@ -43,11 +84,11 @@ export default function WatchListForm() {
           }
         />
 
-        <InputComponent
+        <ChakraTextArea
           label="Description"
-          type="textarea"
+          placeholder="Enter the watchlist description..."
           value={newWatchListInfos.description}
-          handleChange={(e) =>
+          onChange={(e) =>
             setNewWatchListInfos({
               ...newWatchListInfos,
               description: e.target.value,
@@ -55,18 +96,19 @@ export default function WatchListForm() {
           }
         />
 
-        <SelectComponent
+        <ChakraList
           label="Tv Shows"
-          optionsList={tvShows}
-          handleChange={handleChange}
+          listCollection={tvShowsCollection}
+          value={tvShowsListValue}
+          setValue={setTvShowsListValue}
         />
 
-        <ButtonComponent
+        <ChakraButton
           label="Enviar"
           color="green"
           onClickFunc={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
             e.preventDefault();
-            addWatchListService(
+            addWatchList(
               newWatchListInfos.title,
               newWatchListInfos.description,
               newWatchListInfos.tvShows,
