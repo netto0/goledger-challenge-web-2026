@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./HeaderComponent.module.css";
 import { BasicsContext } from "../../contexts/BasicsContext";
+import { Link } from "react-router";
 
 export default function HeaderComponent() {
   const { activePage, setActivePage } = React.useContext(BasicsContext);
@@ -8,49 +9,54 @@ export default function HeaderComponent() {
   return (
     <header className={styles.container}>
       <span className={styles.logo} onClick={() => setActivePage("tvShows")}>
-        Shows<span style={{color: "#db5800"}}>index</span>
+        Shows<span style={{ color: "#db5800" }}>index</span>
       </span>
       <ul>
-        <li
+        <Link
+          to="tvShows"
           className={
             ["tvShows", "addTvShow", "editTvShow"].includes(activePage)
               ? styles.activePageLI
               : undefined
           }
-          onClick={() => setActivePage("tvShows")}
+
+          // onClick={() => setActivePage("tvShows")}
         >
           TvShows
-        </li>
-        <li
+        </Link>
+        <Link
+          to="seasons"
           className={
             ["seasons", "addSeason", "editSeason"].includes(activePage)
               ? styles.activePageLI
               : undefined
           }
-          onClick={() => setActivePage("seasons")}
+          // onClick={() => setActivePage("seasons")}
         >
           Seasons
-        </li>
-        <li
+        </Link>
+        <Link
+          to="episodes"
           className={
             ["episodes", "addEpisode", "editEpisode"].includes(activePage)
               ? styles.activePageLI
               : undefined
           }
-          onClick={() => setActivePage("episodes")}
+          // onClick={() => setActivePage("episodes")}
         >
           Episodes
-        </li>
-        <li
+        </Link>
+        <Link
+          to="watchlists"
           className={
             ["watchlists", "addWatchlist", "editWatchlist"].includes(activePage)
               ? styles.activePageLI
               : undefined
           }
-          onClick={() => setActivePage("watchlists")}
+          // onClick={() => setActivePage("watchlists")}
         >
           Watch Lists
-        </li>
+        </Link>
       </ul>
     </header>
   );

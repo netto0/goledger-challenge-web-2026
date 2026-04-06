@@ -28,6 +28,7 @@ export default function WatchListsPage() {
         title="Popular Watch Lists"
         subTitle="As determined by users"
         buttonFunc={() => setActivePage("addWatchlist")}
+        toLink="/watchlists/addWatchlist"
       />
       {watchLists?.map((e) => (
         <WatchListCard watchList={e} key={e["@key"]} />

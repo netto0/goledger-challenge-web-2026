@@ -7,6 +7,8 @@ import ChakraButton from "../../ChakraComponents/ChakraButton";
 import FormContainer from "../../FormContainer/FormContainer";
 import ChakraInput from "@/components/ChakraComponents/ChakraInput";
 import ChakraTextArea from "@/components/ChakraComponents/ChakraTextArea";
+import { upperLevel } from "@/components/utils/routeFunctions";
+import { useLocation } from "react-router";
 
 export default function TvShowForm() {
   const { newTvShowInfos, setNewTvShowInfos, setActivePage, setIsLoading } =
@@ -35,6 +37,7 @@ export default function TvShowForm() {
             title="Add new Tv Show"
             buttonType="back"
             buttonFunc={() => setActivePage("tvShows")}
+            toLink={upperLevel(useLocation().pathname)}
           />
 
           <ChakraInput

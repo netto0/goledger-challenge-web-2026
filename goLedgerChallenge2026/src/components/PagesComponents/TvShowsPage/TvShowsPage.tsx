@@ -29,6 +29,7 @@ export default function TvShowsPage() {
         title="Best Tv Shows"
         subTitle="As determined by users"
         buttonFunc={() => setActivePage("addTvShow")}
+        toLink="/tvShows/addTvShow"
       />
       {tvShows?.map((e) => (
         <TvShowCard tvShow={e} key={e["@key"]} />

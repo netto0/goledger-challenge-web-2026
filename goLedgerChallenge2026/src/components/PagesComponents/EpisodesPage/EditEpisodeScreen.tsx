@@ -12,6 +12,8 @@ import ChakraDateTimePicker from "@/components/ChakraComponents/ChakraDateTimePi
 import type { DateValue } from "@chakra-ui/react";
 import { parseAbsolute } from "@internationalized/date";
 import { getDateTimeString } from "@/components/utils/dateTimeFunctions";
+import { upperLevel } from "@/components/utils/routeFunctions";
+import { useLocation } from "react-router";
 
 export default function EditEpisodeScreen() {
   const {
@@ -81,6 +83,7 @@ export default function EditEpisodeScreen() {
           title={`${getTvShowBySeasonId(newEpisodeInfos.season["@key"])} S${getSeasonNumber(newEpisodeInfos.season["@key"])} Ep${newEpisodeInfos.episodeNumber}`}
           buttonType="back"
           buttonFunc={() => setActivePage("episodes")}
+          toLink={upperLevel(useLocation().pathname)}
         />
 
         <ChakraInput

@@ -28,6 +28,7 @@ export default function EpisodesPage() {
         title="Best Episodes"
         subTitle="As determined by users"
         buttonFunc={() => setActivePage("addEpisode")}
+        toLink="/episodes/addEpisode"
       />
       {episodes?.map((e) => (
         <EpisodeCard episode={e} key={e["@key"]} />

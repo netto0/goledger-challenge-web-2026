@@ -8,6 +8,8 @@ import PageTitleContainer from "../../PageTitleContainer/PageTitleContainer";
 import ChakraButton from "../../ChakraComponents/ChakraButton";
 import EpisodeCard from "../EpisodesPage/EpisodeCard";
 import ChakraInput from "@/components/ChakraComponents/ChakraInput";
+import { upperLevel } from "@/components/utils/routeFunctions";
+import { useLocation } from "react-router";
 
 export default function EditSeasonScreen() {
   const {
@@ -52,6 +54,7 @@ export default function EditSeasonScreen() {
           title={`${getTvShowBySeasonId(newSeasonInfos["@key"])} #${newSeasonInfos.number}`}
           buttonType="back"
           buttonFunc={() => setActivePage("seasons")}
+          toLink={upperLevel(useLocation().pathname)}
         />
         <ChakraInput
           type="number"

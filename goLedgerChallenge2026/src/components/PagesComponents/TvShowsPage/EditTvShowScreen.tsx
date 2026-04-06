@@ -9,6 +9,8 @@ import { BasicsContext } from "../../../contexts/BasicsContext";
 import SeasonCard from "../SeasonsPage/SeasonCard";
 import ChakraInput from "@/components/ChakraComponents/ChakraInput";
 import ChakraTextArea from "@/components/ChakraComponents/ChakraTextArea";
+import { upperLevel } from "@/components/utils/routeFunctions";
+import { useLocation } from "react-router";
 
 export default function EditTvShowScreen() {
   const {
@@ -56,6 +58,7 @@ export default function EditTvShowScreen() {
           title={newTvShowInfos.title}
           buttonType="back"
           buttonFunc={() => setActivePage("tvShows")}
+          toLink={upperLevel(useLocation().pathname)}
         />
 
         <ChakraTextArea

@@ -10,6 +10,8 @@ import ChakraTextArea from "@/components/ChakraComponents/ChakraTextArea";
 import ChakraList from "@/components/ChakraComponents/ChakraList";
 import { createListCollection } from "@chakra-ui/react";
 import type { TvShowKeyType } from "@/types/TvShowType";
+import { useLocation } from "react-router";
+import { upperLevel } from "@/components/utils/routeFunctions";
 
 export default function EditWatchListScreen() {
   const {
@@ -77,6 +79,7 @@ export default function EditWatchListScreen() {
           title={newWatchListInfos.title}
           buttonType="back"
           buttonFunc={() => setActivePage("watchlists")}
+          toLink={upperLevel(useLocation().pathname)}
         />
 
         <ChakraTextArea

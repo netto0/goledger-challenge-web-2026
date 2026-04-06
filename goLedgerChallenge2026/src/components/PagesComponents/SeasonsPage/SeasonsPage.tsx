@@ -29,6 +29,7 @@ export default function SeasonsPage() {
         title="Popular Seasons"
         subTitle="Determined by users"
         buttonFunc={() => setActivePage("addSeason")}
+        toLink="/seasons/addSeason"
       />
       {seasons?.map((e) => (
         <SeasonCard season={e} key={e["@key"]} />

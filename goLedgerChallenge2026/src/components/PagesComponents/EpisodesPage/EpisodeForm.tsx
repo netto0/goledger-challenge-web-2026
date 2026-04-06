@@ -10,6 +10,8 @@ import { createListCollection, type DateValue } from "@chakra-ui/react";
 import ChakraDateTimePicker from "@/components/ChakraComponents/ChakraDateTimePicker";
 import ChakraInput from "@/components/ChakraComponents/ChakraInput";
 import ChakraTextArea from "@/components/ChakraComponents/ChakraTextArea";
+import { upperLevel } from "@/components/utils/routeFunctions";
+import { useLocation } from "react-router";
 
 export default function EpisodeForm() {
   const {
@@ -92,6 +94,7 @@ export default function EpisodeForm() {
           title="Add New Episode"
           buttonType="back"
           buttonFunc={() => setActivePage("episodes")}
+          toLink={upperLevel(useLocation().pathname)}
         />
 
         <ChakraSelect

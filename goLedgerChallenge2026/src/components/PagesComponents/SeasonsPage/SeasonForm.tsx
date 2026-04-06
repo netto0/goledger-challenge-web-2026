@@ -8,6 +8,8 @@ import ChakraButton from "../../ChakraComponents/ChakraButton";
 import ChakraSelect from "@/components/ChakraComponents/ChakraSelect";
 import { createListCollection } from "@chakra-ui/react";
 import ChakraInput from "@/components/ChakraComponents/ChakraInput";
+import { upperLevel } from "@/components/utils/routeFunctions";
+import { useLocation } from "react-router";
 
 export default function SeasonForm() {
   const {
@@ -53,6 +55,7 @@ export default function SeasonForm() {
           title="Add new Season"
           buttonType="back"
           buttonFunc={() => setActivePage("seasons")}
+          toLink={upperLevel(useLocation().pathname)}
         />
 
         <ChakraSelect
