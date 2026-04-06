@@ -3,8 +3,8 @@
 This is a project created to the GoLedger Front-end position challenge.
 It's basically an "IMDB-like" application to manage Tv Shows, Seasons, Episodes and WatchLists.
 
-![App Preview](https://imgur.com/YRUbWq9)
-![App Preview](https://imgur.com/D81gGvS)
+![App Preview](https://i.imgur.com/YRUbWq9.png)
+![App Preview](https://i.imgur.com/D81gGvS.png)
 
 ---
 
