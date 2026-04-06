@@ -23,6 +23,8 @@ export default function EditEpisodeScreen() {
     getTvShowBySeasonId,
     setActivePage,
     setIsLoading,
+    navigate,
+    getEpisodes,
   } = React.useContext(BasicsContext);
 
   const [dateValue, setDateValue] = useState<DateValue[]>([
@@ -39,7 +41,7 @@ export default function EditEpisodeScreen() {
   ) {
     try {
       setIsLoading(true);
-      await updateEpisodeService(
+      const response = await updateEpisodeService(
         seasonKey,
         episodeNumber,
         title,
@@ -47,6 +49,10 @@ export default function EditEpisodeScreen() {
         description,
         rating,
       );
+      if (response) {
+        navigate(-1);
+        getEpisodes();
+      }
     } catch (e) {
       console.log(e);
     } finally {
@@ -57,7 +63,11 @@ export default function EditEpisodeScreen() {
   async function deleteEpisode(key: string) {
     try {
       setIsLoading(true);
-      await deleteItem(key);
+      const response = await deleteItem(key);
+      if (response) {
+        navigate(-1);
+        getEpisodes();
+      }
     } catch (e) {
       console.log(e);
     } finally {

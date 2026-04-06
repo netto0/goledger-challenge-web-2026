@@ -1,7 +1,8 @@
+import { BasicsContext } from "@/contexts/BasicsContext";
 import styles from "./PageTitleContainer.module.css";
 import { FiPlusCircle } from "react-icons/fi";
 import { FiArrowLeftCircle } from "react-icons/fi";
-import { Link } from "react-router";
+import React from "react";
 
 type props = {
   title: string;
@@ -14,27 +15,24 @@ type props = {
 export default function PageTitleContainer({
   title,
   subTitle,
-  buttonFunc,
   buttonType = "plus",
   toLink = "",
 }: props) {
+  const { navigate } = React.useContext(BasicsContext);
+
   return (
     <div className={styles.container}>
       <div className={styles.titleContainer}>
         <div className={styles.titleSubContainer}>
           {buttonType == "back" && (
-            <Link to={toLink}>
-              <FiArrowLeftCircle onClick={buttonFunc} />
-            </Link>
+            <FiArrowLeftCircle onClick={() => navigate(-1)} />
           )}
           <h1>{title}</h1>
         </div>
         {subTitle ? subTitle : <br />}
       </div>
       {buttonType == "plus" && (
-        <Link to={toLink}>
-          <FiPlusCircle onClick={buttonFunc} />
-        </Link>
+        <FiPlusCircle onClick={() => navigate(toLink)} />
       )}
     </div>
   );

@@ -7,6 +7,7 @@ import {
   type WatchListType,
 } from "../types/WatchListType";
 import type { ActivePageType } from "./BasicsProvider";
+import type { NavigateFunction } from "react-router";
 
 type BasicsType = {
   tvShows: TvShowType[];
@@ -29,6 +30,9 @@ type BasicsType = {
   setActivePage: React.Dispatch<React.SetStateAction<ActivePageType>>;
   isLoading: boolean;
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  loadingPage: boolean;
+  setLoadingPage: React.Dispatch<React.SetStateAction<boolean>>;
+  navigate: NavigateFunction;
   getTvShows: () => Promise<void>;
   getSeasons: () => Promise<void>;
   getEpisodes: () => Promise<void>;
@@ -60,6 +64,9 @@ export const BasicsContext = createContext<BasicsType>({
   setActivePage: () => {},
   isLoading: false,
   setIsLoading: () => {},
+  loadingPage: false,
+  setLoadingPage: () => {},
+  navigate: () => {},
   getTvShows: async () => {},
   getSeasons: async () => {},
   getEpisodes: async () => {},

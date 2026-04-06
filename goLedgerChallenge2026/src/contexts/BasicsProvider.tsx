@@ -11,6 +11,7 @@ import { getTvShowsService } from "../api/services/tvShowsServices";
 import { getSeasonsService } from "../api/services/seasonsServices";
 import { getEpisodesService } from "../api/services/episodesServices";
 import { getWatchListsService } from "../api/services/watchListsServices";
+import { useNavigate } from "react-router";
 
 export type ActivePageType =
   | "tvShows"
@@ -42,32 +43,64 @@ export const BasicsProvider = (props: { children: React.ReactNode }) => {
   );
   const [activePage, setActivePage] = useState<ActivePageType>("tvShows");
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [loadingPage, setLoadingPage] = useState<boolean>(false);
+
+  const navigate = useNavigate();
 
   const getTvShows = async () => {
     try {
-      setIsLoading(true)
+      setIsLoading(true);
+      setLoadingPage(true);
       const tvShows = await getTvShowsService();
       setTvShows(tvShows);
-    } catch (e){
-      console.log(e)
+    } catch (e) {
+      console.log(e);
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
+      setLoadingPage(false);
     }
   };
 
   const getSeasons = async () => {
-    const seasons = await getSeasonsService();
-    setSeasons(seasons);
+    try {
+      setIsLoading(true);
+      setLoadingPage(true);
+      const seasons = await getSeasonsService();
+      setSeasons(seasons);
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setIsLoading(false);
+      setLoadingPage(false);
+    }
   };
 
   const getEpisodes = async () => {
-    const episodes = await getEpisodesService();
-    setEpisodes(episodes);
+    try {
+      setIsLoading(true);
+      setLoadingPage(true);
+      const episodes = await getEpisodesService();
+      setEpisodes(episodes);
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setIsLoading(false);
+      setLoadingPage(false);
+    }
   };
 
   const getWatchLists = async () => {
-    const watchLists = await getWatchListsService();
-    setWatchLists(watchLists);
+    try {
+      setIsLoading(true);
+      setLoadingPage(true);
+      const watchLists = await getWatchListsService();
+      setWatchLists(watchLists);
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setIsLoading(false);
+      setLoadingPage(false);
+    }
   };
 
   function getTvShowTitle(tvShowKey: string): string {
@@ -116,6 +149,9 @@ export const BasicsProvider = (props: { children: React.ReactNode }) => {
         setActivePage,
         isLoading,
         setIsLoading,
+        loadingPage,
+        setLoadingPage,
+        navigate,
         getTvShows,
         getSeasons,
         getEpisodes,

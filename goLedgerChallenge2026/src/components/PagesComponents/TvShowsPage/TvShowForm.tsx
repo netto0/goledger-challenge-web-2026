@@ -11,8 +11,14 @@ import { upperLevel } from "@/components/utils/routeFunctions";
 import { useLocation } from "react-router";
 
 export default function TvShowForm() {
-  const { newTvShowInfos, setNewTvShowInfos, setActivePage, setIsLoading } =
-    React.useContext(BasicsContext);
+  const {
+    newTvShowInfos,
+    setNewTvShowInfos,
+    setActivePage,
+    setIsLoading,
+    getTvShows,
+    navigate,
+  } = React.useContext(BasicsContext);
 
   async function addTvShow(
     title: string,
@@ -21,7 +27,15 @@ export default function TvShowForm() {
   ) {
     try {
       setIsLoading(true);
-      await addTvShowService(title, description, recommendedAge);
+      const response = await addTvShowService(
+        title,
+        description,
+        recommendedAge,
+      );
+      if (response) {
+        navigate(-1);
+        getTvShows();
+      }
     } catch (e) {
       console.log(e);
     } finally {

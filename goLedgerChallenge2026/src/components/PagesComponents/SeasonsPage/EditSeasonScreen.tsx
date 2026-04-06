@@ -19,6 +19,8 @@ export default function EditSeasonScreen() {
     setActivePage,
     episodes,
     setIsLoading,
+    navigate,
+    getSeasons,
   } = React.useContext(BasicsContext);
 
   const seasonEpisodes = episodes.filter(
@@ -28,7 +30,11 @@ export default function EditSeasonScreen() {
   async function updateSeason(number: number, tvShowKey: string, year: number) {
     try {
       setIsLoading(true);
-      await updateSeasonService(number, tvShowKey, year);
+      const response = await updateSeasonService(number, tvShowKey, year);
+      if (response) {
+        navigate(-1);
+        getSeasons();
+      }
     } catch (e) {
       console.log(e);
     } finally {
@@ -39,7 +45,11 @@ export default function EditSeasonScreen() {
   async function deleteSeason(key: string) {
     try {
       setIsLoading(true);
-      await deleteItem(key);
+      const response = await deleteItem(key);
+      if (response) {
+        navigate(-1);
+        getSeasons();
+      }
     } catch (e) {
       console.log(e);
     } finally {

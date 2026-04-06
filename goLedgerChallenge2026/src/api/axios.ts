@@ -17,6 +17,7 @@ const getItensByType = async (type: AssetType) => {
         selector: {
           "@assetType": type,
         },
+        limit: 50
       },
     },
     {

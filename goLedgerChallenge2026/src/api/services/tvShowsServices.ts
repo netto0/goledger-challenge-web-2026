@@ -5,7 +5,6 @@ import { failToast, successToast } from "@/components/utils/toasts";
 const getTvShowsService = async () => {
   try {
     const response = await getItensByType("tvShows");
-
     return response;
   } catch (error) {
     if (error instanceof AxiosError && error.response) {

@@ -19,6 +19,8 @@ export default function EditTvShowScreen() {
     setActivePage,
     seasons,
     setIsLoading,
+    navigate,
+    getTvShows,
   } = React.useContext(BasicsContext);
 
   const tvShowSeasons = seasons.filter(
@@ -32,7 +34,15 @@ export default function EditTvShowScreen() {
   ) {
     try {
       setIsLoading(true);
-      await updateTvShowService(title, description, recommendedAge);
+      const response = await updateTvShowService(
+        title,
+        description,
+        recommendedAge,
+      );
+      if (response) {
+        navigate(-1);
+        getTvShows();
+      }
     } catch (e) {
       console.log(e);
     } finally {
@@ -43,7 +53,11 @@ export default function EditTvShowScreen() {
   async function deleteTvShow(key: string) {
     try {
       setIsLoading(true);
-      await deleteItem(key);
+      const response = await deleteItem(key);
+      if (response) {
+        navigate(-1);
+        getTvShows();
+      }
     } catch (e) {
       console.log(e);
     } finally {

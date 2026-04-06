@@ -21,6 +21,8 @@ export default function EpisodeForm() {
     tvShows,
     seasons,
     setIsLoading,
+    navigate,
+    getEpisodes,
   } = React.useContext(BasicsContext);
 
   const [tvShowValue, setTvShowValue] = useState<string[]>([]);
@@ -58,7 +60,7 @@ export default function EpisodeForm() {
   ) {
     try {
       setIsLoading(true);
-      await addEpisodeService(
+      const response = await addEpisodeService(
         description,
         episodeNumber,
         rating,
@@ -66,6 +68,10 @@ export default function EpisodeForm() {
         seasonKey,
         title,
       );
+      if (response) {
+        navigate(-1);
+        getEpisodes();
+      }
     } catch (e) {
       console.log(e);
     } finally {

@@ -18,19 +18,12 @@ import EditWatchListScreen from "./components/PagesComponents/WatchListsPage/Edi
 
 import { ToastContainer } from "react-toastify";
 import { Route, Routes } from "react-router";
-// import LoadingComponent from "./components/LoadingComponent/LoadingComponent";
 
 export const paletteColorBase = "gray";
 
 function App() {
-  const {
-    getTvShows,
-    getSeasons,
-    getEpisodes,
-    getWatchLists,
-    // activePage,
-    // isLoading,
-  } = React.useContext(BasicsContext);
+  const { getTvShows, getSeasons, getEpisodes, getWatchLists } =
+    React.useContext(BasicsContext);
 
   useEffect(() => {
     getTvShows();
@@ -41,74 +34,28 @@ function App() {
 
   return (
     <>
-      {/* {JSON.stringify(useLocation().pathname)} */}
-      {/* {JSON.stringify(upperLevel("/tvShows/addTvShow"))} */}
-
       <ToastContainer />
       <div className={styles.mainContainer}>
         <HeaderComponent />
-        {/* {isLoading ? (
-          <LoadingComponent />
-        ) : (
-          <>
-            {activePage == "tvShows" && <TvShowsPage />}
-            {activePage == "addTvShow" && <TvShowForm />}
-            {activePage == "editTvShow" && <EditTvShowScreen />}
-            {activePage == "seasons" && <SeasonsPage />}
-            {activePage == "addSeason" && <SeasonForm />}
-            {activePage == "editSeason" && <EditSeasonScreen />}
-            {activePage == "episodes" && <EpisodesPage />}
-            {activePage == "addEpisode" && <EpisodeForm />}
-            {activePage == "editEpisode" && <EditEpisodeScreen />}
-            {activePage == "watchlists" && <WatchListsPage />}
-            {activePage == "addWatchlist" && <WatchListForm />}
-            {activePage == "editWatchlist" && <EditWatchListScreen />}
-          </>
-        )} */}
         <>
           <Routes>
             <Route index element={<TvShowsPage />} />
             <Route path="/tvShows" element={<TvShowsPage />} />
-            <Route path="/tvShows/addTvShow" element={<TvShowForm />} />
-            <Route path="/tvShows/editTvShow" element={<EditTvShowScreen />} />
+            <Route path="/addTvShow" element={<TvShowForm />} />
+            <Route path="/editTvShow" element={<EditTvShowScreen />} />
 
             <Route path="/seasons" element={<SeasonsPage />} />
-            <Route path="/seasons/addSeason" element={<SeasonForm />} />
-            <Route path="/seasons/editSeason" element={<EditSeasonScreen />} />
+            <Route path="/addSeason" element={<SeasonForm />} />
+            <Route path="/editSeason" element={<EditSeasonScreen />} />
 
             <Route path="/episodes" element={<EpisodesPage />} />
-            <Route path="/episodes/addEpisode" element={<EpisodeForm />} />
-            <Route
-              path="/episodes/editEpisode"
-              element={<EditEpisodeScreen />}
-            />
+            <Route path="/addEpisode" element={<EpisodeForm />} />
+            <Route path="/editEpisode" element={<EditEpisodeScreen />} />
 
             <Route path="/watchlists" element={<WatchListsPage />} />
-            <Route
-              path="/watchlists/addWatchlist"
-              element={<WatchListForm />}
-            />
-            <Route
-              path="/watchlists/editWatchlist"
-              element={<EditWatchListScreen />}
-            />
+            <Route path="/addWatchlist" element={<WatchListForm />} />
+            <Route path="/editWatchlist" element={<EditWatchListScreen />} />
           </Routes>
-
-          {/* {activePage == "tvShows" && <TvShowsPage />}
-          {activePage == "addTvShow" && <TvShowForm />}
-          {activePage == "editTvShow" && <EditTvShowScreen />}
-
-          {activePage == "seasons" && <SeasonsPage />}
-          {activePage == "addSeason" && <SeasonForm />}
-          {activePage == "editSeason" && <EditSeasonScreen />}
-
-          {activePage == "episodes" && <EpisodesPage />}
-          {activePage == "addEpisode" && <EpisodeForm />}
-          {activePage == "editEpisode" && <EditEpisodeScreen />}
-
-          {activePage == "watchlists" && <WatchListsPage />}
-          {activePage == "addWatchlist" && <WatchListForm />}
-          {activePage == "editWatchlist" && <EditWatchListScreen />} */}
         </>
         <FooterComponent />
       </div>

@@ -20,6 +20,8 @@ export default function EditWatchListScreen() {
     setNewWatchListInfos,
     setActivePage,
     setIsLoading,
+    navigate,
+    getWatchLists,
   } = React.useContext(BasicsContext);
 
   const [tvShowsListValue, setTvShowsListValue] = useState<string[]>(
@@ -53,7 +55,15 @@ export default function EditWatchListScreen() {
   ) {
     try {
       setIsLoading(true);
-      await updateWatchListService(title, tvShows, description);
+      const response = await updateWatchListService(
+        title,
+        tvShows,
+        description,
+      );
+      if (response) {
+        navigate(-1);
+        getWatchLists();
+      }
     } catch (e) {
       console.log(e);
     } finally {
@@ -64,7 +74,11 @@ export default function EditWatchListScreen() {
   async function deleteWatchList(key: string) {
     try {
       setIsLoading(true);
-      await deleteItem(key);
+      const response = await deleteItem(key);
+      if (response) {
+        navigate(-1);
+        getWatchLists();
+      }
     } catch (e) {
       console.log(e);
     } finally {

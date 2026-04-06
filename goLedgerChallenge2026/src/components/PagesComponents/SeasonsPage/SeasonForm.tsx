@@ -18,6 +18,8 @@ export default function SeasonForm() {
     setActivePage,
     tvShows,
     setIsLoading,
+    navigate,
+    getSeasons,
   } = React.useContext(BasicsContext);
   const [tvShowValue, setTvShowValue] = useState<string[]>([]);
 
@@ -33,7 +35,11 @@ export default function SeasonForm() {
   async function addSeason(number: number, tvShowKey: string, year: number) {
     try {
       setIsLoading(true);
-      await addSeasonService(number, tvShowKey, year);
+      const response = await addSeasonService(number, tvShowKey, year);
+      if (response) {
+        navigate(-1);
+        getSeasons();
+      }
     } catch (e) {
       console.log(e);
     } finally {

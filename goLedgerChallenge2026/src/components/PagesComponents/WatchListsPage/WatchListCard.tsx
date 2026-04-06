@@ -10,15 +10,13 @@ type props = {
 };
 
 export default function WatchListCard({ watchList }: props) {
-  const { setActivePage, setNewWatchListInfos } =
-    React.useContext(BasicsContext);
+  const { setNewWatchListInfos } = React.useContext(BasicsContext);
   return (
-    <Link to="/watchlists/editWatchlist">
+    <Link to="/editWatchlist">
       <CardContainer
         cardKey={watchList["@key"]}
         onClick={() => {
           setNewWatchListInfos(watchList);
-          setActivePage("editWatchlist");
         }}
       >
         <div>

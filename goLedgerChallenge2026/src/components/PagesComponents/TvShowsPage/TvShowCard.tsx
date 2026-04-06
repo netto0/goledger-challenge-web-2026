@@ -10,14 +10,13 @@ type props = {
 };
 
 export default function TvShowCard({ tvShow }: props) {
-  const { setActivePage, setNewTvShowInfos } = React.useContext(BasicsContext);
+  const { setNewTvShowInfos } = React.useContext(BasicsContext);
   return (
-    <Link to="/tvShows/editTvShow">
+    <Link to="/editTvShow">
       <CardContainer
         cardKey={tvShow["@key"]}
         onClick={() => {
           setNewTvShowInfos(tvShow);
-          setActivePage("editTvShow");
         }}
       >
         <div>

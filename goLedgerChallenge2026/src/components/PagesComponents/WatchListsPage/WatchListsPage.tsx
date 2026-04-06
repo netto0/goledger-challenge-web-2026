@@ -4,10 +4,10 @@ import WatchListCard from "./WatchListCard";
 import PageContainer from "../../PageContainer/PageContainer";
 import PageTitleContainer from "../../PageTitleContainer/PageTitleContainer";
 import { watchListInitialValues } from "../../../types/WatchListType";
+import LoadingComponent from "@/components/LoadingComponent/LoadingComponent";
 
 export default function WatchListsPage() {
-  const { watchLists, setActivePage, setNewWatchListInfos } =
-    React.useContext(BasicsContext);
+  const { watchLists, setNewWatchListInfos } = React.useContext(BasicsContext);
   watchLists.sort((a, b) => {
     if (a.title > b.title) {
       return 1;
@@ -23,16 +23,21 @@ export default function WatchListsPage() {
   }, []);
 
   return (
-    <PageContainer>
-      <PageTitleContainer
-        title="Popular Watch Lists"
-        subTitle="As determined by users"
-        buttonFunc={() => setActivePage("addWatchlist")}
-        toLink="/watchlists/addWatchlist"
-      />
-      {watchLists?.map((e) => (
-        <WatchListCard watchList={e} key={e["@key"]} />
-      ))}
-    </PageContainer>
+    <>
+      {watchLists.length == 0 ? (
+        <LoadingComponent />
+      ) : (
+        <PageContainer>
+          <PageTitleContainer
+            title="Popular Watch Lists"
+            subTitle="As determined by users"
+            toLink="/addWatchlist"
+          />
+          {watchLists?.map((e) => (
+            <WatchListCard watchList={e} key={e["@key"]} />
+          ))}
+        </PageContainer>
+      )}
+    </>
   );
 }

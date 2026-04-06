@@ -4,10 +4,10 @@ import TvShowCard from "./TvShowCard";
 import PageTitleContainer from "../../PageTitleContainer/PageTitleContainer";
 import PageContainer from "../../PageContainer/PageContainer";
 import { tvShowInitialValues } from "../../../types/TvShowType";
+import LoadingComponent from "@/components/LoadingComponent/LoadingComponent";
 
 export default function TvShowsPage() {
-  const { tvShows, setActivePage, setNewTvShowInfos } =
-    React.useContext(BasicsContext);
+  const { tvShows, setNewTvShowInfos } = React.useContext(BasicsContext);
 
   tvShows.sort((a, b) => {
     if (a.title.toLowerCase() > b.title.toLowerCase()) {
@@ -24,16 +24,21 @@ export default function TvShowsPage() {
   }, []);
 
   return (
-    <PageContainer>
-      <PageTitleContainer
-        title="Best Tv Shows"
-        subTitle="As determined by users"
-        buttonFunc={() => setActivePage("addTvShow")}
-        toLink="/tvShows/addTvShow"
-      />
-      {tvShows?.map((e) => (
-        <TvShowCard tvShow={e} key={e["@key"]} />
-      ))}
-    </PageContainer>
+    <>
+      {tvShows.length == 0 ? (
+        <LoadingComponent />
+      ) : (
+        <PageContainer>
+          <PageTitleContainer
+            title="Best Tv Shows"
+            subTitle="As determined by users"
+            toLink="/addTvShow"
+          />
+          {tvShows?.map((e) => (
+            <TvShowCard tvShow={e} key={e["@key"]} />
+          ))}
+        </PageContainer>
+      )}
+    </>
   );
 }

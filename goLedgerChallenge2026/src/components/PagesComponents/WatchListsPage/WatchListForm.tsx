@@ -20,6 +20,8 @@ export default function WatchListForm() {
     setNewWatchListInfos,
     setActivePage,
     setIsLoading,
+    navigate,
+    getWatchLists,
   } = React.useContext(BasicsContext);
 
   const tvShowsArray: { label: string; value: string }[] = [];
@@ -43,12 +45,6 @@ export default function WatchListForm() {
     items: tvShowsArray,
   });
 
-  // addWatchListService(
-  //             newWatchListInfos.title,
-  //             newWatchListInfos.description,
-  //             newWatchListInfos.tvShows,
-  //           );
-
   async function addWatchList(
     title: string,
     description: string,
@@ -56,7 +52,11 @@ export default function WatchListForm() {
   ) {
     try {
       setIsLoading(true);
-      await addWatchListService(title, description, tvShows);
+      const response = await addWatchListService(title, description, tvShows);
+      if (response) {
+        navigate(-1);
+        getWatchLists();
+      }
     } catch (e) {
       console.log(e);
     } finally {

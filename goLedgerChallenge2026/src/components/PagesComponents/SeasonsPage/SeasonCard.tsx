@@ -10,16 +10,15 @@ type props = {
 };
 
 export default function SeasonCard({ season }: props) {
-  const { getTvShowTitle, getEpisodesCount, setActivePage, setNewSeasonInfos } =
+  const { getTvShowTitle, getEpisodesCount, setNewSeasonInfos } =
     React.useContext(BasicsContext);
 
   return (
-    <Link to="/seasons/editSeason">
+    <Link to="/editSeason">
       <CardContainer
         cardKey={season["@key"]}
         onClick={() => {
           setNewSeasonInfos(season);
-          setActivePage("editSeason");
         }}
       >
         <div>
