@@ -12,15 +12,15 @@ type props = {
 export default function TvShowCard({ tvShow }: props) {
   const { setNewTvShowInfos } = React.useContext(BasicsContext);
   return (
-    <Link to="/editTvShow">
+    <Link to="/editTvShow" className={styles.cardLink}>
       <CardContainer
         cardKey={tvShow["@key"]}
         onClick={() => {
           setNewTvShowInfos(tvShow);
         }}
       >
-        <div>
-          <h1>{tvShow.title}</h1>
+        <div className={styles.titleContainer}>
+          <h1 className={styles.title}>{tvShow.title}</h1>
           <div className={styles.tvShowInfos}>
             <span className={styles.description}>{tvShow.description}</span>
           </div>

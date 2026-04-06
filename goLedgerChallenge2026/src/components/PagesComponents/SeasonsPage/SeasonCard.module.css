@@ -14,3 +14,16 @@
   font-size: 2rem;
   font-weight: bold;
 }
+
+@media (max-width: 768px) {
+  .titleContainer {
+    width: 85%;
+  }
+
+  .title {
+    width: 90%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

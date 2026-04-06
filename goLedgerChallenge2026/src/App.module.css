@@ -2,6 +2,24 @@
   background-color: rgb(29, 29, 29);
   display: grid;
   grid-template-rows: auto 1fr auto;
+  max-width: 100%;
+  overflow: hidden;
   color: #f3dfcf;
   min-height: 100vh;
+}
+
+.mainContent {
+  width: 100vw;
+  overflow: hidden;
+  padding: 1rem 0;
+}
+
+@media (max-width: 768px) {
+  .mainContainer {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    max-width: 100%;
+    color: #f3dfcf;
+    min-height: 100vh;
+  }
 }

@@ -3,6 +3,13 @@
   padding-left: 0.5rem;
   gap: 1rem;
 }
+
+.title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .tvShowInfos span {
   font-family: "Afacad";
   color: #3f3f3f;
@@ -33,4 +40,28 @@
   min-width: 0;
   line-height: 1;
   overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .description {
+    width: 90%;
+  }
+
+  .title {
+    width: 90%;
+  }
+
+  .tvShowInfos {
+    width: 100%;
+  }
+
+  .tvShowInfos span {
+    font-family: "Afacad";
+    font-size: medium;
+    font-weight: 300;
+  }
+
+  .titleContainer {
+    width: 85%;
+  }
 }

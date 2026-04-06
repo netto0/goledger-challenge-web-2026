@@ -17,6 +17,7 @@
   font-family: "Afacad";
   font-size: 2rem;
   font-weight: bold;
+  width: 20%;
   margin-left: 0.5rem;
 }
 
@@ -38,4 +39,62 @@
   min-width: 0;
   line-height: 1;
   overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .titleContainer {
+    width: 85%;
+  }
+
+  .rating {
+    display: flex;
+    flex-direction: column;
+    width: 15%;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: "Afacad";
+    font-size: 2rem;
+    font-weight: bold;
+    margin-left: 0;
+  }
+
+  .rating span {
+    font-size: 2rem;
+  }
+
+  .rating svg {
+    font-size: 2rem;
+  }
+
+  .title {
+    width: 90%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .description {
+    width: 90%;
+  }
+
+  .episodeInfos {
+    width: 90%;
+  }
+
+  .episodeInfos {
+    font-family: "Afacad";
+    font-size: medium;
+    font-weight: 300;
+  }
+
+  .epData {
+    width: 20%;
+  }
+
+  .showName {
+    width: 55%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }

@@ -20,13 +20,18 @@
   flex-direction: column;
   font-family: "Afacad";
   gap: 0;
-  padding: 1rem 0;
+  padding-bottom: 1rem;
+  width: 80vw;
 }
 
 .titleContainer h1 {
   margin-bottom: -1rem;
   font-size: 3rem;
   font-weight: 800;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .titleContainer span {
@@ -43,4 +48,17 @@
 
 .titleSubContainer svg {
   margin-top: 1rem;
+}
+
+@media (max-width: 768px) {
+  .titleContainer h1 {
+    font-size: 1.5rem;
+    margin-bottom: -0.5rem;
+  }
+  .container svg {
+    font-size: 2rem;
+  }
+  .titleSubContainer svg {
+    font-size: 2rem;
+  }
 }

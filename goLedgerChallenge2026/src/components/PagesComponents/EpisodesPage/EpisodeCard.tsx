@@ -22,13 +22,13 @@ export default function EpisodeCard({ episode }: props) {
           setNewEpisodeInfos(episode);
         }}
       >
-        <div>
-          <h1>{episode.title}</h1>
+        <div className={styles.titleContainer}>
+          <h1 className={styles.title}>{episode.title}</h1>
           <div className={styles.episodeInfos}>
-            <span>{getTvShowBySeasonId(episode.season["@key"])}</span>
-            <span>S{getSeasonNumber(episode.season["@key"])}</span>
-            <span>Ep{episode.episodeNumber}</span>
-            <span>{episode.releaseDate.slice(0, 4)}</span>
+            <span className={styles.showName}>{getTvShowBySeasonId(episode.season["@key"])}</span>
+            <span className={styles.epData}>S{getSeasonNumber(episode.season["@key"])}</span>
+            <span className={styles.epData}>Ep{episode.episodeNumber}</span>
+            <span className={styles.epData}>{episode.releaseDate.slice(0, 4)}</span>
           </div>
           <span className={styles.description}>{episode.description}</span>
         </div>

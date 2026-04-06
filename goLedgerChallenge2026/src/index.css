@@ -1,3 +1,9 @@
+@import "tailwindcss";
+
 nav a.active {
   color: #db5800;
+}
+
+html {
+  background-color: rgb(29, 29, 29);
 }

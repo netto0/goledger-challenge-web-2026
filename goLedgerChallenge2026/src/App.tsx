@@ -37,7 +37,7 @@ function App() {
       <ToastContainer />
       <div className={styles.mainContainer}>
         <HeaderComponent />
-        <>
+        <div className={styles.mainContent}>
           <Routes>
             <Route index element={<TvShowsPage />} />
             <Route path="/tvShows" element={<TvShowsPage />} />
@@ -56,7 +56,7 @@ function App() {
             <Route path="/addWatchlist" element={<WatchListForm />} />
             <Route path="/editWatchlist" element={<EditWatchListScreen />} />
           </Routes>
-        </>
+        </div>
         <FooterComponent />
       </div>
     </>

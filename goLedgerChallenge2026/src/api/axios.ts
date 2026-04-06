@@ -9,7 +9,7 @@ const authPayload = {
   password: import.meta.env.VITE_PASSWORD,
 };
 
-const getItensByType = async (type: AssetType) => {
+const getItensByType = async (type: AssetType, limit: number = 0) => {
   const response = await axios.post(
     `${baseUrl}/query/search`,
     {
@@ -17,7 +17,7 @@ const getItensByType = async (type: AssetType) => {
         selector: {
           "@assetType": type,
         },
-        limit: 50
+        limit: limit,
       },
     },
     {

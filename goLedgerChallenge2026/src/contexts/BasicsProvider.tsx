@@ -104,7 +104,9 @@ export const BasicsProvider = (props: { children: React.ReactNode }) => {
   };
 
   function getTvShowTitle(tvShowKey: string): string {
-    return tvShows.filter((t) => t["@key"] == tvShowKey)[0]?.title;
+    const response = tvShows.filter((t) => t["@key"] == tvShowKey)[0]?.title;
+    console.log(response)
+    return response
   }
 
   function getEpisodesCount(seasonKey: string): number {

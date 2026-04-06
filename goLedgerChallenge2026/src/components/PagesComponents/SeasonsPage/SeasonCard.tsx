@@ -21,8 +21,10 @@ export default function SeasonCard({ season }: props) {
           setNewSeasonInfos(season);
         }}
       >
-        <div>
-          <h1>{getTvShowTitle(season.tvShow["@key"])}</h1>
+        <div className={styles.titleContainer}>
+          <h1 className={styles.title}>
+            {getTvShowTitle(season.tvShow["@key"]) || '"Empty"'}
+          </h1>
           <div className={styles.seasonInfos}>
             <span>{season.year}</span>
             <span>{getEpisodesCount(season["@key"])} episodes</span>
