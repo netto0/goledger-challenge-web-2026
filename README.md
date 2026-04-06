@@ -1,51 +1,37 @@
-# GoLedger Challenge
+# GoLedger Front-end Challenge
 
-In this challenge you will create a web interface to a blockchain application. In this application you must implement a imdb-like interface, to catalogue TV Shows, with series, seasons, episodes and watchlist registration.
+This is a project created to the GoLedger Front-end position challenge.
+It's basically an "IMDB-like" application to manage Tv Shows, Seasons, Episodes and WatchLists.
 
-# Requirements
+![App Preview](https://imgur.com/YRUbWq9)
+![App Preview](https://imgur.com/D81gGvS)
 
-- Your application should be able to add/remove/edit and show all tv shows, seasons, episodes and watchlists;
-- Use **React** or **Next.js** (all UI libraries are allowed);
+---
 
-## Instructions
+## Stack
 
-- Fork the repository [https://github.com/goledgerdev/goledger-challenge-web](https://github.com/goledgerdev/goledger-challenge-web)
-    - Fork it, do **NOT** clone it, since you will need to send us your forked repository
-    - If you **cannot** fork it, create a private repository and give access to `andremacedopv` and `lucas-campelo`.
-- Create an web application using React. You will implement the basic operations provided by the API, which are `Create`, `Update`, `Delete` and `Search`.
-- Improve your application with a beautiful UI.
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)
+![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
 
-## Server
+---
 
-The data are obtained using a rest server at this address: `http://ec2-50-19-36-138.compute-1.amazonaws.com`
+## Libs used
 
-Also, a Swagger with the endpoints specifications for the operations is provided at this address: `http://ec2-50-19-36-138.compute-1.amazonaws.com/api-docs/index.html`.
+- React Icons
+- Chakra UI
+- React Router
 
-Note: The API is protected with Basic Auth. The credentials were sent to you by email.
+---
 
-Tip: execute each operation in the Swagger for information on payload format and endpoint addresses. See examples below.
+## Setup
 
-### Get Schema
-Execute a `getSchema` operation to get information on which asset types are available. Don't forget to authenticate with the credentials provided.
+Clone this repo to your desktop, access the folder with `cd goLedgerChallenge2026` and then run `npm install` to install all de depenciencies. After that, rename the `.env.example` file to `.env`.
 
-```bash
-curl -X POST "http://ec2-50-19-36-138.compute-1.amazonaws.com/api/query/getSchema" -H "accept: */*" -H "Content-Type: application/json"
-```
+Now you can run `npm run dev` to start the project locally on `http://localhost:5173`
 
-Execute a getSchema with a payload to get more details on a particula asset.
+---
 
-```bash
-curl -X POST "http://ec2-50-19-36-138.compute-1.amazonaws.com/api/query/getSchema" -H "accept: */*" -H "Content-Type: application/json" -d "{\"assetType\":\"tvShows\"}"
-```
-Tip: the same can be done with transactions, using the `getTx` endpoint.
+## Figma
 
-### Search
-Perform a search query on a particular asset type.
-```bash
-curl -X POST "http://ec2-50-19-36-138.compute-1.amazonaws.com/api/query/search" -H "accept: */*" -H "Content-Type: application/json" -d "{\"query\":{\"selector\":{\"@assetType\":\"seasons\"}}}"
-```
-Tip: to read a specific asset, you can use the `readAsset` endpoint.
-
-## Complete the challenge
-
-To complete the challenge, you must send us the link to your forked repository with the code of your application. Please, provide instructions to execute the code.
+[Here you can see the project sketch I made in Figma before starting the development](https://www.figma.com/design/3HYHBHdeEp7hBdUTtsCVIP/Untitled?m=auto&t=h53S1e0OmMyMxuXt-6)
