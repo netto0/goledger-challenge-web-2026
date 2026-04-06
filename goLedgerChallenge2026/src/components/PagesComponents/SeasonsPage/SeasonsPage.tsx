@@ -7,13 +7,14 @@ import { seasonInitialValues } from "../../../types/SeasonType";
 import LoadingComponent from "@/components/LoadingComponent/LoadingComponent";
 
 export default function SeasonsPage() {
-  const { seasons, setNewSeasonInfos } = React.useContext(BasicsContext);
+  const { seasons, setNewSeasonInfos, getEpisodesCount } =
+    React.useContext(BasicsContext);
 
   seasons.sort((a, b) => {
-    if (a.number > b.number) {
+    if (getEpisodesCount(a["@key"]) < getEpisodesCount(b["@key"])) {
       return 1;
     }
-    if (a.number < b.number) {
+    if (getEpisodesCount(a["@key"]) > getEpisodesCount(b["@key"])) {
       return -1;
     }
     return 0;

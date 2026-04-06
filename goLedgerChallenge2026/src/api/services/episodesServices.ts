@@ -4,7 +4,7 @@ import { failToast, successToast } from "@/components/utils/toasts";
 
 const getEpisodesService = async () => {
   try {
-    const response = await getItensByType("episodes", 50);
+    const response = await getItensByType("episodes", 100);
     return response;
   } catch (error) {
     if (error instanceof AxiosError && error.response) {
